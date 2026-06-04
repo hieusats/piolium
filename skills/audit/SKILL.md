@@ -95,11 +95,12 @@ Use the advisory-hunter workflow to collect:
 
 - advisories, CVEs, GHSAs, and patch commits
 - coarse architecture inventory: components, transports, execution contexts, trust boundaries
-- security-relevant dependencies, with runtime context noted for each one. Use the `supply-chain-risk-auditor` skill to systematically assess dependency risks.
+- a general component inventory ("SBOM"): every software component the target directly relies on across all categories — runtimes, packages, frameworks, datastores, external services, container/OS layer, build/CI tooling, shelled-out binaries, and vendored code — written to `piolium/attack-surface/sbom.json`
+- security-relevant dependencies: the `security_relevant` subset of that inventory, with runtime context noted for each one. Use the `supply-chain-risk-auditor` skill to systematically assess the flagged components' risks.
 
 Treat dependency findings as hypotheses until the audit proves the affected runtime path is reachable.
 
-Write all findings to the `## Advisory Intelligence` section of `piolium/attack-surface/knowledge-base-report.md`.
+Write all findings to the `## Advisory Intelligence` and `## Component Inventory` sections of `piolium/attack-surface/knowledge-base-report.md`, and the full inventory to `piolium/attack-surface/sbom.json`.
 
 ## Phase 2 — Patch Bypass Analysis
 
@@ -493,17 +494,18 @@ rm -f piolium/merged-results.sarif
 rm -f piolium/bounty-scope.md
 ```
 
-Only three paths are retained: `piolium/attack-surface/knowledge-base-report.md`, `piolium/final-audit-report.md`, and `piolium/findings/`.
+Only four paths are retained: `piolium/attack-surface/knowledge-base-report.md`, `piolium/attack-surface/sbom.json`, `piolium/final-audit-report.md`, and `piolium/findings/`.
 
 ## Output Directory
 
-All audit output lives in `<repo-root>/piolium/`. Three paths are retained after the audit completes. Everything else is cleaned up at the end of Phase 15.
+All audit output lives in `<repo-root>/piolium/`. Four paths are retained after the audit completes. Everything else is cleaned up at the end of Phase 15.
 
 **Retained after audit:**
 
 | Path                                            | Phases that write to it                                                                                                                                                  |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `piolium/attack-surface/knowledge-base-report.md`           | 1 (advisory), 2 (bypass), 3 (arch/threat model/attack surface/domain attack research), 4 (SAST summary + CodeQL structural), 5 (enrichment), 6 (spec gaps), 7 (addendum) |
+| `piolium/attack-surface/sbom.json`                          | 1 (general component inventory / SBOM)                                                                                                                                   |
 | `piolium/final-audit-report.md`              | 10                                                                                                                                                                       |
 | `piolium/findings/<Cn\|Hn\|Mn>-<bug-name>/` | 10 (promoted from draft)                                                                                                                                                 |
 
@@ -534,8 +536,8 @@ All audit output lives in `<repo-root>/piolium/`. Three paths are retained after
 - Delete Semgrep cache, `semgrep-res/`, and `codeql-res/` after Phase 4. Retain
   `piolium/codeql-artifacts/db/` through Phase 12 for on-demand reachability and variant queries.
   Delete the database at the end of Phase 12. Delete all remaining working artifacts at the end of
-  Phase 15 — only `piolium/attack-surface/knowledge-base-report.md`, `piolium/final-audit-report.md`, and
-  `piolium/findings/` are retained.
+  Phase 15 — only `piolium/attack-surface/knowledge-base-report.md`, `piolium/attack-surface/sbom.json`,
+  `piolium/final-audit-report.md`, and `piolium/findings/` are retained.
 - Low severity findings are dropped at the earliest phase that determines their severity (Phase 5,
   7, or 8). They do not appear in Phase 12, Phase 15, or any final output.
 - No fix recommendations by default unless the user asks.

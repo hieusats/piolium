@@ -62,6 +62,13 @@ Classify the project into one or more types:
 
 ### Step 2: Architecture Mapping
 
+**Seed from the Component Inventory first.** If `piolium/attack-surface/sbom.json` exists (written by Phase 1 advisory-hunter), read it before walking the tree. It is a general inventory of every software component the target directly relies on — runtimes, packages, frameworks, datastores, external services, container/OS layer, build/CI tooling, shelled-out binaries, and vendored code — each with `category`, `version`, `purpose`, and `evidence`. Use it to:
+- Seed `## Architecture Model` (components, transports, execution environments) instead of rediscovering the stack from scratch — verify entries against the named `evidence` paths, then extend with anything the inventory missed.
+- Seed `## Key Dependencies` from the `security_relevant: true` components rather than re-enumerating manifests; add version/CVE/reachability notes on top.
+- Inform multi-service detection (multiple `datastore`/service components or distinct container images are a signal) and Step 3 Mode B/C domain selection (security-sensitive `package`/`framework`/`external-service` entries).
+
+Treat `sbom.json` as a starting point, not a ceiling: if it is absent or a category shows `coverage_gaps`, fall back to full discovery for that part.
+
 - Map attacker-controlled inputs, trust boundaries, and security-critical decisions
 - Build compact **DFD slices** for only the highest-risk attacker-controlled flows
 - Build compact **CFD slices** for only the highest-risk authn/authz, policy, routing, orchestration, and privilege-transition paths
@@ -123,6 +130,7 @@ Produce a single `piolium/attack-surface/knowledge-base-report.md` containing al
 - `## Architecture Model` (components, transports, trust boundaries)
 - `## DFD/CFD Slices` (Mermaid diagrams for highest-risk flows)
 - `## Attack Surface` (attacker-controlled inputs, execution environments)
+- `## Key Dependencies` (security-relevant subset of the Component Inventory, seeded from `sbom.json` per Step 2; version/CVE/reachability notes added)
 - `## Framework Contracts and Hidden Control Channels` (middleware/proxy/runtime/header contracts security depends on)
 - `## Threat Model` (threat actors, assets, attack scenarios)
 - `## Domain Attack Research` (Mode A/B/C catalog with custom SAST targets and manual review checklist)

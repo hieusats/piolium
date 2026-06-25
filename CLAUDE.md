@@ -38,8 +38,9 @@ The default export `pioliumExtension(pi)` is the single entry point Pi calls per
 1. Registers session flags (`--plm-dir`, `--plm-since`, `--plm-scan-limit`, `--plm-scan-since`, and the `--plm-*-retries`/`--plm-*-backoff*` family). Each flag mirrors to a `PIOLIUM_*` env var via `applyPioliumProcessFlagEnv` so downstream modules read a single source of truth (`process.env`).
 2. Registers a `piolium-stream` message renderer that pretty-prints sub-agent tool-call/result events nested under the originating phase tag.
 3. Registers each `/piolium-*` slash command. Every handler delegates to a mode runner under `extensions/piolium/modes/` and wires phase-strip UI through `createPhaseStripCommandUi`.
+4. Registers the bundled `anthropic-vertex` provider (`providers/anthropic-vertex.ts`), but only when Vertex looks configured — `isAnthropicVertexConfigured()` gates it on the `PIOLIUM_VERTEX` override or any Google/Vertex env var, so a plain install doesn't advertise a provider it can't authenticate. `PIOLIUM_VERTEX` is read straight from `process.env` (no `--plm-*` flag): flag env mirroring runs during command parsing, which is *after* this init-time registration, so a flag couldn't take effect here.
 
-The renderer + flag registration are global side effects — be careful adding more, since they run on every Pi session start.
+The renderer + flag + provider registration are global side effects — be careful adding more, since they run on every Pi session start.
 
 ### Mode runners and phases
 

@@ -77,6 +77,10 @@ Or start an interactive `pi` session and type a command such as:
 
 Most commands accept an optional target directory as the first argument.
 
+## Providers
+
+Piolium runs on whatever provider your Pi session is configured for. It also bundles an `anthropic-vertex` provider for running Claude through Google Vertex AI, registered only when Vertex is configured — any `GOOGLE_CLOUD_*` / `ANTHROPIC_VERTEX_PROJECT_ID` env var enables it, or set `PIOLIUM_VERTEX=1` to force it on (`PIOLIUM_VERTEX=0` to hide it). See [HACKING.md](HACKING.md#claude-on-vertex) for details.
+
 ## Deep mode phases
 
 `/piolium-deep` runs 17 phases (`P1`–`P17`) in five stages. Pass phase ids to rerun only those (e.g. `/piolium-deep . P4 P10`):

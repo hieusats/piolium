@@ -79,6 +79,21 @@ piolium auth import
 
 When Piolium starts or runs `doctor`, it warns and auto-syncs if the isolated auth file is still empty and normal Pi auth exists.
 
+## Claude on Vertex
+
+Piolium bundles an `anthropic-vertex` provider for running Claude models through Google Vertex AI:
+
+```bash
+pi --provider anthropic-vertex --model claude-opus-4-6@default
+```
+
+Credentials come from Google ADC (`gcloud auth application-default login`, or `GOOGLE_APPLICATION_CREDENTIALS`). To keep `pi`'s model and auth-status lists clean on installs that never use Vertex, the provider is only registered when Vertex looks configured. Detection runs at session start, in this order:
+
+1. `PIOLIUM_VERTEX` — explicit override. `1`/`true`/`on` force the provider on; `0`/`false`/`off` force it off. Anything else (or unset) falls through to auto-detection.
+2. Otherwise it registers when any of these are set: `ANTHROPIC_VERTEX_PROJECT_ID`, `GOOGLE_CLOUD_PROJECT`, `GCLOUD_PROJECT`, `GOOGLE_APPLICATION_CREDENTIALS`, `GOOGLE_CLOUD_LOCATION`, `CLOUD_ML_REGION`.
+
+If your project comes only from `gcloud config` (no env vars set), set `PIOLIUM_VERTEX=1` to force the provider on. Detection deliberately does **not** shell out to `gcloud` on every session start. `PIOLIUM_VERTEX` is a plain env var with no `--plm-*` flag: flag values are mirrored to the environment only during command parsing, which is after the provider is registered at extension load.
+
 ## Custom Install Home
 
 Set a custom Piolium home before running the installer:

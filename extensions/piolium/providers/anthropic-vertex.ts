@@ -855,17 +855,76 @@ const streamSimpleAnthropicVertex: StreamFunction<Api, SimpleStreamOptions> = (
 };
 
 /**
+ * Env vars that signal the user actually intends to run Claude on Vertex.
+ *
+ * Mirrors the resolution order in `resolveProject` / `resolveRegion` (minus the
+ * `gcloud config get-value project` fallback — we don't shell out on every
+ * session start just to decide whether to show the provider). Any one of these
+ * being set is treated as opt-in.
+ */
+const VERTEX_ENV_VARS = [
+	"ANTHROPIC_VERTEX_PROJECT_ID",
+	"GOOGLE_CLOUD_PROJECT",
+	"GCLOUD_PROJECT",
+	"GOOGLE_APPLICATION_CREDENTIALS",
+	"GOOGLE_CLOUD_LOCATION",
+	"CLOUD_ML_REGION",
+] as const;
+
+const VERTEX_TOGGLE_ON: readonly string[] = ["1", "true", "on"];
+const VERTEX_TOGGLE_OFF: readonly string[] = ["0", "false", "off"];
+
+/**
+ * Tri-state parse of the explicit `PIOLIUM_VERTEX` override: `true`/`false` for a
+ * recognized on/off value, `undefined` for anything else (unset, blank, or
+ * unrecognized) so detection falls back to the env-var sniff.
+ */
+function parseExplicitToggle(value: string | undefined): boolean | undefined {
+	const normalized = value?.trim().toLowerCase();
+	if (!normalized) return undefined;
+	if (VERTEX_TOGGLE_ON.includes(normalized)) return true;
+	if (VERTEX_TOGGLE_OFF.includes(normalized)) return false;
+	return undefined;
+}
+
+/**
+ * Decide whether the `anthropic-vertex` provider should be registered.
+ *
+ * A default install with no Google Cloud / Vertex setup should not surface a
+ * provider that can never authenticate (it only clutters `pi`'s model and
+ * auth-status lists). So we register only when there's evidence of intent:
+ *
+ *   - `PIOLIUM_VERTEX` set to a truthy/falsey value is an explicit override
+ *     (handy for a gcloud-only setup where the project comes from
+ *     `gcloud config`, or to force the provider off).
+ *   - otherwise, any one of `VERTEX_ENV_VARS` being present opts in.
+ */
+export function isAnthropicVertexConfigured(env: NodeJS.ProcessEnv = process.env): boolean {
+	const override = parseExplicitToggle(env.PIOLIUM_VERTEX);
+	if (override !== undefined) return override;
+	return VERTEX_ENV_VARS.some((name) => {
+		const value = env[name];
+		return typeof value === "string" && value.trim().length > 0;
+	});
+}
+
+/**
  * Register the `anthropic-vertex` provider with pi-coding-agent.
  *
  * Adds the provider + Claude-on-Vertex models. Pi-ai's built-in
  * `google-vertex` provider keeps serving Gemini models untouched.
+ *
+ * No-ops when Vertex isn't configured (see `isAnthropicVertexConfigured`) so a
+ * plain install doesn't advertise a provider the user can't use. Returns
+ * whether the provider was registered.
  *
  * The `apiKey` field is required by the registry but isn't used as an
  * HTTP header here — `AnthropicVertex` authenticates via Google ADC. We
  * emit the resolved project id so `pi`'s auth-status check has something
  * non-empty to display.
  */
-export function registerAnthropicVertex(pi: ExtensionAPI): void {
+export function registerAnthropicVertex(pi: ExtensionAPI): boolean {
+	if (!isAnthropicVertexConfigured()) return false;
 	pi.registerProvider(PROVIDER_NAME, {
 		baseUrl: BASE_URL,
 		api: API_NAME,
@@ -874,4 +933,5 @@ export function registerAnthropicVertex(pi: ExtensionAPI): void {
 		models: MODELS,
 		streamSimple: streamSimpleAnthropicVertex,
 	});
+	return true;
 }

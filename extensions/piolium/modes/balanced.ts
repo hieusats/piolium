@@ -60,6 +60,7 @@ export interface RunBalancedResult {
 
 export const BALANCED_ATTACK_SURFACE_DIR = "piolium/attack-surface";
 export const BALANCED_KB_REPORT = `${BALANCED_ATTACK_SURFACE_DIR}/knowledge-base-report.md`;
+export const BALANCED_UNAUTH_SURFACE = `${BALANCED_ATTACK_SURFACE_DIR}/unauthenticated-surface.md`;
 export const BALANCED_ADVISORY_SUMMARY = `${BALANCED_ATTACK_SURFACE_DIR}/advisory-summary.md`;
 export const BALANCED_SAST_REPORT = `${BALANCED_ATTACK_SURFACE_DIR}/source-sink-flows-all-severities.md`;
 export const BALANCED_ATTACK_SURFACE_INVENTORY = `${BALANCED_ATTACK_SURFACE_DIR}/manual-attack-surface-inventory.md`;
@@ -175,6 +176,8 @@ function buildL2Task(): string {
 		"  ## Coverage Gaps",
 		"",
 		"Framework-contract coverage must inventory middleware/proxy/runtime/header assumptions that can affect auth, routing, tenant selection, debug/admin/preview behavior, method/path override, or cache keys.",
+		"",
+		`Also run Step 6 (Unauthenticated Attack Surface): write \`${BALANCED_UNAUTH_SURFACE}\` — a best-effort model-level enumeration of what an anonymous attacker (no session/token/API key) can reach, each entry classed by-design / missing-guard / middleware-gap. Balanced mode has no authz-auditor phase, so this is the final unauthenticated-surface artifact. Always write it, even for a target with no network surface.`,
 		"",
 		`Read \`${BALANCED_ADVISORY_SUMMARY}\` if present. Use the security-threat-model skill if available.`,
 		"Stop after writing the report. Do not start L3.",

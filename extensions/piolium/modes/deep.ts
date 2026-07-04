@@ -90,6 +90,7 @@ const PATCH_BYPASS_SUMMARY = `${ATTACK_SURFACE_DIR}/patch-bypass-summary.md`;
 const ATTACK_SURFACE_ARCHITECTURE = `${ATTACK_SURFACE_DIR}/architecture-entrypoints.md`;
 const SAST_REPORT = `${ATTACK_SURFACE_DIR}/source-sink-flows-all-severities.md`;
 const AUTHZ_MATRIX = `${ATTACK_SURFACE_DIR}/public-routes-authz-matrix.md`;
+const UNAUTH_SURFACE = `${ATTACK_SURFACE_DIR}/unauthenticated-surface.md`;
 const STATE_CONCURRENCY = `${ATTACK_SURFACE_DIR}/state-concurrency-summary.md`;
 const SPEC_GAP = `${ATTACK_SURFACE_DIR}/spec-gap-summary.md`;
 const MANUAL_ATTACK_SURFACE = `${ATTACK_SURFACE_DIR}/manual-attack-surface-inventory.md`;
@@ -267,6 +268,7 @@ function buildTask(phase: string, cwd: string, hasGit: boolean): string {
 				`Build the deep KB at \`${KB_REPORT}\`. Use the security-threat-model skill if available.`,
 				"Sections: Project Type, Trust Boundaries, DFD slices, CFD slices, Framework Contracts and Hidden Control Channels, Domain Attack Modes (apply sharp-edges, wooyun-legacy, insecure-defaults, last30days as applicable), Coverage Gaps.",
 				`Also write \`${ATTACK_SURFACE_ARCHITECTURE}\` with a reusable inventory of entry points, public routes/URLs if visible, attacker-controlled sources, high-value sinks, and key source files.`,
+				`Run Step 6 (Unauthenticated Attack Surface): seed \`${UNAUTH_SURFACE}\` — a best-effort model-level enumeration of what an anonymous attacker (no session/token/API key) can reach, each entry classed by-design / missing-guard / middleware-gap. Phase P5 access-control will later supersede this seed with the exhaustive route-matrix-derived version. Always write it, even for a target with no network surface.`,
 				"This KB drives every later phase — be thorough.",
 			].join("\n\n");
 		case "P4":
@@ -286,6 +288,7 @@ function buildTask(phase: string, cwd: string, hasGit: boolean): string {
 			return [
 				"You are running Stage 05 (Authorization & Access Control) of /piolium-deep.",
 				`Read \`${KB_REPORT}\` and \`${ATTACK_SURFACE_ARCHITECTURE}\` if present. Build \`${AUTHZ_MATRIX}\` with rows: public route/URL/operation × roles, expected vs actual checks, including middleware/proxy-derived identity and hidden control channels. Mark cells with anomalies as draft findings under \`piolium/findings-draft/p5-NNN-<slug>.md\`.`,
+				`Run Step 3b to supersede \`${UNAUTH_SURFACE}\`: Phase P3 seeded a best-effort copy — replace it with the exhaustive matrix-derived version (carry over any non-route entries it captured that your matrix does not cover). Classify each entry by-design / missing-guard / middleware-gap; missing-guard and middleware-gap rows must have a corresponding p5 draft.`,
 			].join("\n\n");
 		case "P6":
 			return [

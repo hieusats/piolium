@@ -35,6 +35,7 @@ When INFO.md is present, your job becomes:
 3. Skip Step 1 (Project Classification rediscovery) and Step 2's free-form architecture mapping — INFO.md already gives you the trust boundaries.
 4. Run Step 3 (Domain Attack Research) and Step 4 (Threat Model) as normal — INFO.md does NOT cover those.
 5. Run Step 5 (Phase 4 Extraction Targets) as normal.
+6. Run Step 6 (Unauthenticated Attack Surface) as normal, seeding the `Auth model` line from the `## Auth and authz primitives` INFO.md section.
 
 When INFO.md is **absent**, run the full process below from Step 1.
 
@@ -122,6 +123,43 @@ Invoke the `security-threat-model` skill to formally document the threat model.
 
 Add a `## Phase 4 CodeQL Extraction Targets` section to the KB. For each high-risk DFD slice, record the expected CodeQL source type (RemoteFlowSource, LocalUserInput, EnvironmentVariable) and the expected sink kind (sql-execution, command-execution, file-access, http-request, code-execution, deserialization). Leave blank if no DFD slices were identified.
 
+### Step 6: Unauthenticated Attack Surface
+
+Produce `piolium/attack-surface/unauthenticated-surface.md` — the subset of the attack surface reachable by an **anonymous attacker** with no valid session, token, or API key. This is the highest-severity reachability class: any weakness reachable here is exploitable by anyone who can reach the endpoint, so downstream phases (Deep Probe, Authz Audit, Review Chambers) treat a sink reachable from this surface as one severity band higher than the same sink behind auth. Always write the file, even for a library/CLI with no network surface — in that case state that explicitly.
+
+Derive it from Step 2 (Architecture Model, trust boundaries, `## Attack Surface`) and the `## Auth and authz primitives` INFO.md section / auth middleware you identified: an entry point is **pre-auth** when no identity-establishing guard runs before its handler body. Do NOT re-run exhaustive route enumeration — this is a best-effort model-level pass over the entry points you already mapped. (In deep mode, Phase P5 `authz-auditor` supersedes this file with an exhaustive route-matrix-derived version; balanced mode has no such phase, so your version is final.)
+
+Classify every entry with a **Why pre-auth** value:
+- `by-design` — intentionally public: login, signup, password-reset-init, health/metrics, OAuth/webhook callback, public API, static assets.
+- `missing-guard` — should plausibly be protected but no guard was found (candidate finding — the probe/authz phases will confirm).
+- `middleware-gap` — guarded only by a bypassable middleware/proxy/header signal with no handler-level re-check (see `## Framework Contracts and Hidden Control Channels`).
+
+Use this exact structure so downstream phases and merge-mode consolidation can parse it:
+
+```markdown
+# Unauthenticated Attack Surface
+
+Reachable by an anonymous attacker — no valid session, token, or API key.
+
+**Coverage**: <N entry points> | <M by-design public> | <P missing-guard / middleware-gap>
+**Auth model**: <how identity is established, e.g. JWT bearer via requireAuth middleware (src/mw/auth.ts:12), or "none — no network-facing surface">
+**Coverage gaps**: <dynamically-registered / reflection-based / unresolved handlers, or "none">
+
+## Pre-Auth HTTP / API Routes
+
+| # | Method | Path | Handler (file:line) | Why pre-auth | Notable inputs / sinks | Blast radius |
+|---|--------|------|---------------------|--------------|------------------------|--------------|
+
+## Other Unauthenticated Entry Points
+
+Non-route surface reachable without auth — include only kinds that apply: webhook / OAuth / payment callback, health / metrics / debug endpoint, GraphQL introspection, WebSocket pre-handshake handler, static / file server, unauthenticated queue / topic consumer, file-upload endpoint, SSRF-reachable fetcher, server-to-server endpoint trusting only a network position or shared secret.
+
+| Kind | Entry point (file:line) | Why pre-auth | Notes |
+|------|-------------------------|--------------|-------|
+```
+
+If the project genuinely exposes no unauthenticated surface, write the header block with `**Coverage**: 0 entry points` and a one-line explanation instead of empty tables.
+
 ## Output
 
 Produce a single `piolium/attack-surface/knowledge-base-report.md` containing all Phase 3 sections:
@@ -137,4 +175,4 @@ Produce a single `piolium/attack-surface/knowledge-base-report.md` containing al
 - `## Phase 4 CodeQL Extraction Targets`
 - `## Spec Gap Candidates` (specs/RFCs implemented, for Phase 9)
 
-All Phase 3 content lives inside `piolium/attack-surface/knowledge-base-report.md` as sections -- no separate files.
+All Phase 3 KB content lives inside `piolium/attack-surface/knowledge-base-report.md` as sections. The one separate artifact is `piolium/attack-surface/unauthenticated-surface.md` (Step 6) — always write it.

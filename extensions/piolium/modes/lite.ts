@@ -65,6 +65,7 @@ export interface RunLiteResult {
 export const LITE_ATTACK_SURFACE_DIR = "piolium/attack-surface";
 export const Q1_SUMMARY = Q1_SECRETS_SUMMARY;
 export const Q2_SUMMARY = `${LITE_ATTACK_SURFACE_DIR}/lite-q2-summary.md`;
+export const Q2_UNAUTH_SURFACE = `${LITE_ATTACK_SURFACE_DIR}/unauthenticated-surface.md`;
 export const Q3_CONSOLIDATION_MANIFEST = `${LITE_ATTACK_SURFACE_DIR}/lite-consolidation-manifest.json`;
 export const Q4_VERIFICATION_SUMMARY = `${LITE_ATTACK_SURFACE_DIR}/lite-verification-summary.md`;
 export const Q4_CLEANUP_SUMMARY = `${LITE_ATTACK_SURFACE_DIR}/lite-cleanup-summary.json`;
@@ -334,6 +335,8 @@ function buildQ2Task(cwd: string): string {
 		"  - Prioritize precise/high-score candidate files first, but validate with source evidence before drafting.",
 		"  - For each candidate issue, write a draft finding to `piolium/findings-draft/q2-NNN-<slug>.md`.",
 		`  - Write a phase summary to \`${Q2_SUMMARY}\` even when nothing is found.`,
+		`  - Always write \`${Q2_UNAUTH_SURFACE}\`: a best-effort, model-level enumeration of what an anonymous attacker (no session/token/API key) can reach, derived from the recon entry points and any auth middleware you spot. No exhaustive route grep — flag \`<coverage gap>\` where routing can't be resolved. Classify each entry's Why-pre-auth as by-design (login/signup/health/webhook/public API), missing-guard (should plausibly be protected), or middleware-gap (guarded only by a bypassable proxy/header signal). If there is no network-facing surface, say so in the header block.`,
+		`  - Pre-auth is the highest-severity reachability class: when a candidate finding sits on (or is reachable from) an entry point in \`${Q2_UNAUTH_SURFACE}\`, elevate its severity one band (e.g. high → critical) and note \`pre-auth\` in the draft. A bug an anonymous attacker can reach outranks the same bug behind auth.`,
 		"  - Stop after at most 8 candidate findings — quality over quantity.",
 		"",
 		`Target repository: ${cwd}`,
@@ -368,7 +371,7 @@ async function runQ2(
 		missingAgentMessage: "static-analyzer agent not found in bundled agents/.",
 		task: buildQ2Task(cwd),
 		runtimeExtras: {
-			outputPaths: [findingsDraftDir(cwd), join(cwd, Q2_SUMMARY)],
+			outputPaths: [findingsDraftDir(cwd), join(cwd, Q2_SUMMARY), join(cwd, Q2_UNAUTH_SURFACE)],
 			notes: ["Lite mode — keep the run under 5 minutes wall-clock."],
 		},
 		gate: () => gatePass(cwd, "Q2"),

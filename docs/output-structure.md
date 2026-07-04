@@ -109,6 +109,7 @@ Common files include:
 | `lite-cleanup-summary.json` | lite Q4 | Removed, missing, and retained paths from lite cleanup. |
 | `advisory-summary.md` | balanced L1, deep P1 | Advisory and dependency intelligence. |
 | `knowledge-base-report.md` | balanced L2, deep P3 | Architecture model, trust boundaries, DFD/CFD slices, threat model, and coverage gaps. |
+| `unauthenticated-surface.md` | lite Q2, balanced L2, deep P3 (seed) → deep P5 (final) | The subset of the attack surface reachable by an anonymous attacker (no session/token/API key): pre-auth routes and non-route entry points, each tagged `by-design` / `missing-guard` / `middleware-gap`. Present in every intensity. In deep, the authz-auditor supersedes the knowledge-base-builder's seed with an exhaustive matrix-derived version. |
 | `architecture-entrypoints.md` | deep P3 | Entry points, attacker sources, sinks, routes, and key files. |
 | `source-sink-flows-all-severities.md` | balanced L3, deep P4 | SAST findings and source-to-sink paths. |
 | `manual-attack-surface-inventory.md` | balanced L4, deep P8 | Manually traced routes, sources, sinks, and exploit-relevant paths. |
@@ -254,8 +255,8 @@ These files are for debugging phase execution. Cleanup phases generally remove
 
 | Command | Primary outputs |
 | --- | --- |
-| `/piolium-lite` | `attack-surface/lite-*.md`, `attack-surface/lite-consolidation-manifest.json`, severity-prefixed `findings/<C\|H\|M><N>-<slug>/` (`draft.md`, `poc.*`, `evidence/`), `attack-surface/lite-cleanup-summary.json` |
-| `/piolium-balanced` | `attack-surface/advisory-summary.md`, `knowledge-base-report.md`, SAST/probe/chamber summaries, `findings/`, `final-audit-report.md`, balanced cleanup summary |
+| `/piolium-lite` | `attack-surface/lite-*.md`, `attack-surface/unauthenticated-surface.md`, `attack-surface/lite-consolidation-manifest.json`, severity-prefixed `findings/<C\|H\|M><N>-<slug>/` (`draft.md`, `poc.*`, `evidence/`), `attack-surface/lite-cleanup-summary.json` |
+| `/piolium-balanced` | `attack-surface/advisory-summary.md`, `knowledge-base-report.md`, `attack-surface/unauthenticated-surface.md`, SAST/probe/chamber summaries, `findings/`, `final-audit-report.md`, balanced cleanup summary |
 | `/piolium-deep` | Full `attack-surface/` corpus, `findings/`, `variant-summary.md`, `final-audit-report.md`, optional `confirmation-report.md`, deep cleanup summary |
 | `/piolium-export` | `exports/findings-*.json` or markdown export directory with filtered finding metadata and owners |
 | `/piolium-learn` | `attack-surface/matcher-suggestions.json`, optional `matchers.json` |
@@ -272,8 +273,9 @@ For a completed audit, start with:
 1. `piolium/final-audit-report.md`
 2. `piolium/findings/<id>-<slug>/report.md`
 3. `piolium/attack-surface/knowledge-base-report.md`
-4. `piolium/attack-surface/source-sink-flows-all-severities.md`
-5. `piolium/audit-state.json`
+4. `piolium/attack-surface/unauthenticated-surface.md` (all intensities — what an anonymous attacker can reach; triage pre-auth findings first)
+5. `piolium/attack-surface/source-sink-flows-all-severities.md`
+6. `piolium/audit-state.json`
 
 For confirmation results, start with:
 

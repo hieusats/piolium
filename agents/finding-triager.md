@@ -36,7 +36,7 @@ You may use `Read` only to:
 
 1. Read the finding draft you were given.
 2. Optionally read the draft's `adversarial-review.md` sibling (deep mode CRIT/HIGH only) if it is in the same directory or in `piolium/adversarial-reviews/`.
-3. Optionally read `piolium/INFO.md` (specifically the `## Known False-Positive Sources` section) to align your `skip` reasoning with the project's stated FP patterns.
+3. Optionally read `piolium/KNOWLEDGE-BASE.md` (or the legacy `piolium/INFO.md`), specifically the `## Known False-Positive Sources` section, to align your `skip` reasoning with the project's stated FP patterns.
 
 Anything else is out of scope.
 
@@ -95,7 +95,7 @@ From the draft's `## Impact` (or the title and severity if no Impact section exi
 - The draft's `Confidence` field (if present) is `low` AND the severity is MEDIUM.
 - The Impact section is empty, hand-wavy ("could be exploited in some configuration"), or restates the title.
 - The draft cites no concrete file:line evidence — only "in the auth flow" or similar.
-- The finding matches an explicitly listed pattern under `## Known False-Positive Sources` in `piolium/INFO.md` (only check this if INFO.md exists).
+- The finding matches an explicitly listed pattern under `## Known False-Positive Sources` in `piolium/KNOWLEDGE-BASE.md` (or the legacy `piolium/INFO.md`) — only check this if the file exists.
 
 ### 5. Write Back to the Draft
 

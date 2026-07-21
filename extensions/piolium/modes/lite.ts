@@ -463,7 +463,7 @@ async function runQ3PoCPerFinding(
 		notify(ui, "warning", "poc-builder agent missing; skipping Q3 per-finding PoC construction.");
 		return { failed: false };
 	}
-	const scheduler = new Scheduler({ maxConcurrent: 3, ...(signal ? { signal } : {}) });
+	const scheduler = new Scheduler(signal ? { signal } : {});
 	const settled = await Promise.allSettled(
 		consolidation.promoted.map((entry) =>
 			scheduler.enqueue({
@@ -661,7 +661,7 @@ export async function runLiteAudit(opts: RunLiteOptions): Promise<RunLiteResult>
 	}
 
 	// Q1 + Q2 race under the cap. Both are independent.
-	const scheduler = new Scheduler({ maxConcurrent: 3, ...(signal ? { signal } : {}) });
+	const scheduler = new Scheduler(signal ? { signal } : {});
 	const { agents } = loadAgents({ cwd });
 	const staticAnalyzer = agents.get("static-analyzer");
 	const pocBuilder = agents.get("poc-builder");

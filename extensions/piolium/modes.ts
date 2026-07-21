@@ -16,6 +16,7 @@
  *   - diff: dynamically derived from change set; see modes/diff.ts when it lands
  *   - longshot: piolium-only hail-mary — X1 enumerate → X2 hunt fan-out → X3 aggregate
  *   - reinvest: cross-agent re-verification of CRIT/HIGH findings — I1 enumerate → I2 wave-verifier fan-out (cap 3) → I3 consensus summary
+ *   - knowledge-base: context-only build — KB0 external-doc intake (optional) → K1 advisory + SBOM → K2 project model + unauthenticated surface (stops before SAST/findings)
  */
 
 import type { AuditMode } from "./audit-state.ts";
@@ -48,6 +49,7 @@ export const MODE_PHASES: Record<AuditMode, readonly string[]> = {
 	merge: ["M1", "M2", "M3", "M4", "M5", "M6", "M7"],
 	longshot: ["X1", "X2", "X3"],
 	reinvest: ["I1", "I2", "I3"],
+	"knowledge-base": ["KB0", "K1", "K2"],
 };
 
 export function phasesFor(mode: AuditMode): readonly string[] {

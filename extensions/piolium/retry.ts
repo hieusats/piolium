@@ -30,6 +30,14 @@ export function readNonNegativeIntEnv(name: string, fallback: number): number {
 	return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
 }
 
+/** Read a trimmed non-empty string env var, or `undefined` when unset/blank. */
+export function readTrimmedEnv(name: string): string | undefined {
+	const raw = process.env[name];
+	if (raw === undefined) return undefined;
+	const trimmed = raw.trim();
+	return trimmed.length > 0 ? trimmed : undefined;
+}
+
 export function errorMessage(err: unknown): string {
 	return err instanceof Error ? err.message : typeof err === "string" ? err : "Unknown error";
 }

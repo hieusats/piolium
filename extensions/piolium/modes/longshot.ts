@@ -280,10 +280,7 @@ async function runX2(
 	setStatus(ui, `● X2 hunting ${remaining.length} file(s)`);
 
 	const perFileTimeoutMs = readPerFileTimeoutMs(options.perFileTimeoutMs);
-	const scheduler = new Scheduler({
-		maxConcurrent: 3,
-		...(options.signal ? { signal: options.signal } : {}),
-	});
+	const scheduler = new Scheduler(options.signal ? { signal: options.signal } : {});
 
 	let completed = 0;
 	let failed = 0;

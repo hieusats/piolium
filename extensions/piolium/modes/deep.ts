@@ -50,6 +50,7 @@ import {
 } from "../audit-state.ts";
 import { runCandidateScanAsync } from "../candidate-scan.ts";
 import { listFindingDirs, promoteDraftsByPrefix } from "../findings.ts";
+import { ingestKnowledgeBaseForRun } from "../knowledge-base-input.ts";
 import { runReconAsync } from "../recon.ts";
 import { readPositiveIntEnv } from "../retry.ts";
 import { Scheduler } from "../scheduler.ts";
@@ -453,7 +454,7 @@ async function runFanout3(
 	ui: DeepUiHooks | undefined,
 	agentRuntime?: AgentRuntimeModel,
 ): Promise<{ failed: boolean }> {
-	const scheduler = new Scheduler({ maxConcurrent: 3, ...(signal ? { signal } : {}) });
+	const scheduler = new Scheduler(signal ? { signal } : {});
 	const settled = await Promise.allSettled(
 		specs.map((s) =>
 			scheduler.enqueue({
@@ -489,7 +490,7 @@ async function runPerFinding(
 		return { failed: false };
 	}
 	const maxAttempts = PER_FINDING_MAX_RETRIES + 1;
-	const scheduler = new Scheduler({ maxConcurrent: 3, ...(signal ? { signal } : {}) });
+	const scheduler = new Scheduler(signal ? { signal } : {});
 	const settled = await Promise.allSettled(
 		dirs.map((d) =>
 			scheduler.enqueue({
@@ -787,6 +788,10 @@ export async function runDeepAudit(opts: RunDeepOptions): Promise<RunDeepResult>
 			agent_sdk: "pi",
 		});
 	}
+
+	// Optional external-doc ingestion (--plm-knowledge-base / -raw). No-op when
+	// none supplied; the staged corpus feeds the P3 knowledge-base builder.
+	await ingestKnowledgeBaseForRun({ cwd, auditId: audit.audit_id, notify: ui?.notify });
 
 	const { agents } = loadAgents({ cwd });
 	const specs: Record<string, PhaseSpec> = {

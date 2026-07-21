@@ -47,6 +47,7 @@ import {
 	formatPhaseHeartbeatStatusLine,
 } from "./heartbeat.ts";
 import { PIOLIUM_STARTUP_HINT, buildPioliumHelpLines } from "./help.ts";
+import { applyKnowledgeBaseAvailableEnv } from "./knowledge-base-file.ts";
 import { runMatcherLearn } from "./matcher-suggestions.ts";
 import { phasesFor } from "./modes.ts";
 import { runBalancedAudit } from "./modes/balanced.ts";
@@ -54,6 +55,7 @@ import { bootstrapResultsOnlyConfirm } from "./modes/confirm-bootstrap.ts";
 import { runConfirmAudit } from "./modes/confirm.ts";
 import { runDeepAudit } from "./modes/deep.ts";
 import { runDiffAudit } from "./modes/diff.ts";
+import { runKnowledgeBaseAudit } from "./modes/knowledge-base.ts";
 import { runLiteAudit } from "./modes/lite.ts";
 import { runLongshotAudit } from "./modes/longshot.ts";
 import { runMergeAudit } from "./modes/merge.ts";
@@ -163,6 +165,22 @@ export const FLAG_ENV_MAPPINGS = [
 		flag: "plm-longshot-include-tests",
 		env: "PIOLIUM_LONGSHOT_INCLUDE_TESTS",
 		description: "Set 1/true to include test files in longshot enumeration (default off)",
+	},
+	{
+		flag: "plm-max-agents",
+		env: "PIOLIUM_MAX_AGENTS",
+		description: "Max concurrent background sub-agents (Swarm Burst Cap; default: 3)",
+	},
+	{
+		flag: "plm-knowledge-base",
+		env: "PIOLIUM_KNOWLEDGE_BASE",
+		description: "Path to a markdown file or docs dir to ingest as untrusted KB input",
+	},
+	{
+		flag: "plm-knowledge-base-raw",
+		env: "PIOLIUM_KNOWLEDGE_BASE_RAW",
+		description:
+			"Inline markdown string to ingest as untrusted KB input (mutually exclusive with --plm-knowledge-base)",
 	},
 ] as const;
 
@@ -639,6 +657,9 @@ function parseCommandTargetOrNotify(
 		return undefined;
 	}
 	applyPioliumProcessFlagEnv(pi);
+	// Surface curated-context (KNOWLEDGE-BASE.md / legacy INFO.md) presence to
+	// in-process sub-agents via PIOLIUM_KNOWLEDGE_BASE_AVAILABLE.
+	applyKnowledgeBaseAvailableEnv(parsed.cwd);
 	return parsed;
 }
 
@@ -1232,6 +1253,73 @@ export default function pioliumExtension(pi: ExtensionAPI) {
 					ctx,
 					consoleStream,
 					`Lite audit threw: ${err instanceof Error ? err.message : String(err)}`,
+				);
+			} finally {
+				phaseUi.clearStatus();
+			}
+		},
+	});
+
+	pi.registerCommand("piolium-knowledge-base", {
+		description:
+			"Build a reusable attack-surface knowledge base (KB0 intake → K1 advisory + SBOM → K2 project model + unauthenticated surface) and stop before SAST/findings.",
+		handler: async (args, ctx) => {
+			const command = parseCommandTargetOrNotify(args, ctx, consoleStream, pi);
+			if (!command) return;
+			const fresh = command.tokens.includes("--fresh");
+			const phaseUi = createPhaseStripCommandUi(
+				{ cwd: command.cwd, ui: ctx.ui },
+				"piolium-knowledge-base",
+				phasesFor("knowledge-base"),
+				{
+					initialPhase: "KB0",
+					consoleStream,
+				},
+			);
+			phaseUi.setStatus("piolium-knowledge-base", "● starting knowledge-base build");
+			await allowInitialUiPaint();
+			try {
+				const result = await runCommandWithRetry(
+					"piolium-knowledge-base",
+					"piolium-knowledge-base",
+					phaseUi,
+					async () =>
+						runKnowledgeBaseAudit({
+							cwd: command.cwd,
+							forceFresh: fresh,
+							agentRuntime: agentRuntimeFromCommandContext(pi, ctx),
+							ui: {
+								notify: phaseUi.notify,
+								setStatus: phaseUi.setStatus,
+								onAgentEvent,
+								onPhaseHeartbeat: phaseUi.onPhaseHeartbeat,
+							},
+						}),
+				);
+				const phaseLines = formatCommandPhaseLines(command.cwd, result.auditId, result.phases);
+				await showCommandResult(
+					ctx,
+					consoleStream,
+					"Piolium — Knowledge Base",
+					[
+						`Directory: ${command.cwd}`,
+						`Audit:  ${result.auditId}`,
+						`Status: ${result.status}`,
+						"",
+						"Phases:",
+						...phaseLines,
+						"",
+						"Reusable context: piolium/attack-surface/knowledge-base-report.md, sbom.json, unauthenticated-surface.md",
+					],
+					{
+						footerLines: buildAuditResultStatsLines(command.cwd, result.auditId),
+					},
+				);
+			} catch (err) {
+				notifyCommandError(
+					ctx,
+					consoleStream,
+					`Knowledge-base build threw: ${err instanceof Error ? err.message : String(err)}`,
 				);
 			} finally {
 				phaseUi.clearStatus();

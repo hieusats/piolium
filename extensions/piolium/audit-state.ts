@@ -16,6 +16,26 @@ import { withFileMutationQueue } from "@earendil-works/pi-coding-agent";
 import { phasesFor } from "./modes.ts";
 import { formatPhaseDetailLabel } from "./phase-labels.ts";
 
+/**
+ * Small, non-sensitive reference to a run's staged external knowledge-base
+ * input (Tier-1 ingestion). Snake-case because it is persisted in
+ * `audit-state.json`; `aggregate_sha256` is the identity used on resume. The
+ * producer lives in `knowledge-base-input.ts`, but the persisted shape is
+ * defined here (alongside the schema it lives in) so the generic state module
+ * does not depend on the feature module.
+ */
+export interface KnowledgeBaseReference {
+	source_kind: string;
+	source_label: string;
+	manifest_path: string;
+	corpus_path: string;
+	seed_path: string;
+	file_count: number;
+	total_bytes: number;
+	aggregate_sha256: string;
+	adopted_from_audit_id?: string;
+}
+
 export type AuditMode =
 	| "lite"
 	| "balanced"
@@ -25,7 +45,8 @@ export type AuditMode =
 	| "revisit"
 	| "merge"
 	| "longshot"
-	| "reinvest";
+	| "reinvest"
+	| "knowledge-base";
 export type RunStatus = "pending" | "in_progress" | "complete" | "failed";
 export type PhaseStatus = "pending" | "in_progress" | "complete" | "failed" | "skipped";
 
@@ -60,6 +81,17 @@ export interface AuditRunState {
 	completed_at?: string | null;
 	status: RunStatus;
 	phases: Record<string, PhaseState>;
+	/**
+	 * Staged external knowledge-base input for this run (Tier-1 ingestion). Its
+	 * `aggregate_sha256` is the identity used to verify the corpus on resume.
+	 */
+	knowledge_base?: KnowledgeBaseReference;
+	/**
+	 * Whether the target worktree was clean (excluding `piolium/`) when this run
+	 * started. Gates prior-KB-run adoption — a KB built from a dirty tree must
+	 * not be silently reused on a later run.
+	 */
+	source_snapshot_clean?: boolean;
 }
 
 export interface AuditStateFile {
@@ -209,6 +241,8 @@ export interface InitAuditOptions {
 	branch?: string;
 	repository?: string;
 	history_available?: boolean;
+	/** Whether the target worktree was clean (excluding `piolium/`) at run start. */
+	source_snapshot_clean?: boolean;
 	/** Override the phase list (otherwise derived from mode). */
 	phases?: readonly string[];
 }
@@ -236,6 +270,9 @@ export async function initAudit(cwd: string, options: InitAuditOptions): Promise
 		...(options.branch !== undefined && { branch: options.branch }),
 		...(options.repository !== undefined && { repository: options.repository }),
 		...(options.history_available !== undefined && { history_available: options.history_available }),
+		...(options.source_snapshot_clean !== undefined && {
+			source_snapshot_clean: options.source_snapshot_clean,
+		}),
 	};
 
 	await mutateAuditState(cwd, (state) => ({ ...state, audits: [...state.audits, run] }));

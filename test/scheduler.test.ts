@@ -1,8 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import {
+	DEFAULT_MAX_AGENTS,
 	Scheduler,
 	SchedulerAbortError,
 	TaskTimeoutError,
+	resolveBurstCap,
 } from "../extensions/piolium/scheduler.ts";
 
 function deferred<T>(): {
@@ -177,5 +179,37 @@ describe("Scheduler stats + batch", () => {
 		]);
 		expect(results[0]?.status).toBe("fulfilled");
 		expect(results[1]?.status).toBe("rejected");
+	});
+});
+
+describe("resolveBurstCap", () => {
+	const ENV_KEY = "PIOLIUM_MAX_AGENTS";
+	const prior = process.env[ENV_KEY];
+	afterEach(() => {
+		if (prior === undefined) delete process.env[ENV_KEY];
+		else process.env[ENV_KEY] = prior;
+	});
+
+	it("falls back to the default when PIOLIUM_MAX_AGENTS is unset", () => {
+		delete process.env[ENV_KEY];
+		expect(resolveBurstCap()).toBe(DEFAULT_MAX_AGENTS);
+		expect(resolveBurstCap()).toBe(3);
+	});
+
+	it("honours a positive PIOLIUM_MAX_AGENTS override", () => {
+		process.env[ENV_KEY] = "7";
+		expect(resolveBurstCap()).toBe(7);
+	});
+
+	it("ignores non-positive or non-numeric values and uses the fallback", () => {
+		for (const bad of ["0", "-2", "abc", ""]) {
+			process.env[ENV_KEY] = bad;
+			expect(resolveBurstCap()).toBe(DEFAULT_MAX_AGENTS);
+		}
+	});
+
+	it("respects an explicit fallback argument", () => {
+		delete process.env[ENV_KEY];
+		expect(resolveBurstCap(5)).toBe(5);
 	});
 });

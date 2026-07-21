@@ -50,7 +50,6 @@ export interface RunReinvestResult {
 export const REINVEST_WORKSPACE = "piolium/reinvest-workspace";
 export const REINVEST_SCOPE_FILE = `${REINVEST_WORKSPACE}/scope.json`;
 export const REINVEST_REPORT = "piolium/reinvest-report.md";
-const REINVEST_BURST_CAP = 3;
 const STATUS_KEY = "piolium-reinvest";
 
 interface ReinvestScopeEntry {
@@ -208,10 +207,7 @@ async function runI2(
 	await applyPhaseStatus(cwd, audit, "I2", { status: "in_progress" });
 	setStatus(opts.ui, `● I2 verifying ${scope.scope.length} finding(s)`);
 
-	const scheduler = new Scheduler({
-		maxConcurrent: REINVEST_BURST_CAP,
-		...(opts.signal ? { signal: opts.signal } : {}),
-	});
+	const scheduler = new Scheduler(opts.signal ? { signal: opts.signal } : {});
 	const auditIdSafe = audit.audit_id.replace(/[:.]/g, "-");
 	const total = scope.scope.length;
 	let completed = 0;
@@ -244,7 +240,7 @@ async function runI2(
 							notes: [
 								`Finding: ${entry.id}-${entry.slug}`,
 								`Wave: ${entry.wave}`,
-								`Burst cap: ${REINVEST_BURST_CAP}`,
+								`Burst cap: ${scheduler.maxConcurrent}`,
 								`Baseline agent: ${scope.baseline_agent_sdk ?? "(unknown)"}`,
 							],
 						},

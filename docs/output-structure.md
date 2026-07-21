@@ -40,6 +40,7 @@ These paths are the primary outputs to keep after a run:
 
 | Path | Produced by | Description |
 | --- | --- | --- |
+| `piolium/KNOWLEDGE-BASE.md` | maintainer (input, not generated) | Hand-curated, authoritative project context read first by `knowledge-base-builder`. Legacy name `piolium/INFO.md` still honored as a fallback. See [Maintainer-provided context](#maintainer-provided-context-knowledge-basemd). |
 | `piolium/audit-state.json` | all audit commands | Run history, mode, status, phases, retry metadata, artifacts, commit, branch, and repository identity. |
 | `piolium/attack-surface/` | lite, balanced, deep, diff, revisit, merge | Durable context used by later phases: recon, advisories, KB, SAST, probes, chamber summaries, and merge summaries. |
 | `piolium/attack-surface/candidates.jsonl` | lite, balanced, deep, diff, revisit, longshot | Ranked deterministic candidate matches used to steer later phases toward high-risk files. |
@@ -109,6 +110,8 @@ Common files include:
 | `lite-cleanup-summary.json` | lite Q4 | Removed, missing, and retained paths from lite cleanup. |
 | `advisory-summary.md` | balanced L1, deep P1 | Advisory and dependency intelligence. |
 | `knowledge-base-report.md` | balanced L2, deep P3 | Architecture model, trust boundaries, DFD/CFD slices, threat model, and coverage gaps. |
+| `knowledge-base-input/` | knowledge-base KB0; balanced/deep with `--plm-knowledge-base` | Immutable, cited staging copy of user-supplied external docs (`manifest.json` + `corpus.md` + `sources/NNN-*`), treated as untrusted data. Written only by the engine. |
+| `knowledge-base-seed.md` | knowledge-base KB0 | Cited, security-oriented distillation of the staged external-doc corpus (`sources/<file>:<line>` citations); read by later phases as data to verify against source. |
 | `unauthenticated-surface.md` | lite Q2, balanced L2, deep P3 (seed) → deep P5 (final) | The subset of the attack surface reachable by an anonymous attacker (no session/token/API key): pre-auth routes and non-route entry points, each tagged `by-design` / `missing-guard` / `middleware-gap`. Present in every intensity. In deep, the authz-auditor supersedes the knowledge-base-builder's seed with an exhaustive matrix-derived version. |
 | `architecture-entrypoints.md` | deep P3 | Entry points, attacker sources, sinks, routes, and key files. |
 | `source-sink-flows-all-severities.md` | balanced L3, deep P4 | SAST findings and source-to-sink paths. |
@@ -283,3 +286,27 @@ For confirmation results, start with:
 2. `piolium/confirm-workspace/poc-results.json`
 3. `piolium/confirm-workspace/test-mapping.json`
 4. `piolium/findings/<id>-<slug>/evidence/`
+
+## Maintainer-provided context (`KNOWLEDGE-BASE.md`)
+
+`piolium/KNOWLEDGE-BASE.md` is an **input**, not an output: a hand-curated, project-specific
+context file (typically 50–100 lines) a maintainer checks into the target repo. When present
+it is treated as **authoritative** — `knowledge-base-builder` inlines it verbatim and skips
+re-deriving what it covers. The extension sets `PIOLIUM_KNOWLEDGE_BASE_AVAILABLE` (`true`/`false`)
+per command so in-process sub-agents can branch on its presence.
+
+The legacy filename `piolium/INFO.md` is still accepted as a fallback; when both exist,
+`KNOWLEDGE-BASE.md` wins.
+
+Recognized `##` sections (all optional):
+
+| Section | Used for |
+| --- | --- |
+| `## Project type and purpose` | `## Project Classification` (no re-classification). |
+| `## Primary trust boundaries` | Seeds `## Architecture Model` / `## Attack Surface`. |
+| `## Auth and authz primitives` | Canonical guards for probe / authz phases. |
+| `## Known false-positive sources` | Reproduced verbatim; later phases skip matching findings. |
+| `## Out-of-scope paths` | SAST/probe exclusion globs. |
+| `## Spec / RFC commitments` | `## Spec Gap Candidates`. |
+| `## Recent security context` | Surfaced in the executive summary. |
+| `## External Docs` (optional) | Advisory pointer to design docs/specs; the untrusted-doc corpus itself is staged and cited separately as `attack-surface/knowledge-base-seed.md` by the knowledge-base ingestion pipeline. |

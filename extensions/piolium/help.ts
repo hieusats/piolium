@@ -53,6 +53,13 @@ const COMMANDS: CommandHelp[] = [
 		example: 'pi -p "/piolium-lite --fresh"',
 	},
 	{
+		command: "/piolium-knowledge-base",
+		usage: "/piolium-knowledge-base [path] [--fresh] [--plm-knowledge-base=<docs>]",
+		does:
+			"Builds a reusable attack-surface knowledge base (advisories, SBOM, project model, unauthenticated surface) and stops before SAST/findings.",
+		example: 'pi -p "/piolium-knowledge-base"',
+	},
+	{
 		command: "/piolium-balanced",
 		usage: "/piolium-balanced [path] [--fresh]",
 		does:
@@ -194,6 +201,23 @@ const CLI_FLAGS: FlagHelp[] = [
 		flag: "--plm-longshot-include-tests <true|false>",
 		does: "Includes test files in /piolium-longshot enumeration when set to true.",
 		example: 'pi --plm-longshot-include-tests true -p "/piolium-longshot"',
+	},
+	{
+		flag: "--plm-max-agents <N>",
+		does: "Caps concurrent background sub-agents (Swarm Burst Cap) across every mode. Default: 3.",
+		example: 'pi --plm-max-agents 5 -p "/piolium-deep"',
+	},
+	{
+		flag: "--plm-knowledge-base <path>",
+		does:
+			"Ingests a markdown file or docs directory as untrusted, cited knowledge-base input (also auto-discovers a knowledge-base/ dir).",
+		example: 'pi --plm-knowledge-base ./docs -p "/piolium-knowledge-base"',
+	},
+	{
+		flag: "--plm-knowledge-base-raw <md>",
+		does:
+			"Ingests an inline markdown string as knowledge-base input (mutually exclusive with --plm-knowledge-base).",
+		example: 'pi --plm-knowledge-base-raw "# API\\nJWT auth" -p "/piolium-balanced"',
 	},
 ];
 

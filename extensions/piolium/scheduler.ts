@@ -2,9 +2,10 @@
  * Concurrency-capped FIFO scheduler used by every audit mode.
  *
  * Why this exists:
- *   - Piolium's Deep mode mandates a hard cap of 3 concurrently active
- *     background sub-agents (the "Swarm Burst Cap"). The cap is enforced
- *     here so individual modes don't reinvent it.
+ *   - Piolium's Deep mode mandates a hard cap of concurrently active background
+ *     sub-agents (the "Swarm Burst Cap", default 3, overridable via
+ *     `--plm-max-agents` / `PIOLIUM_MAX_AGENTS` — see `resolveBurstCap`). The cap
+ *     is enforced here so individual modes don't reinvent it.
  *   - Each task gets its own AbortSignal so a long-running sub-agent can be
  *     cancelled cleanly when the user aborts the audit.
  *   - Per-task timeouts catch runaway model calls without stalling the whole
@@ -23,9 +24,30 @@
 
 import { existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import { readPositiveIntEnv } from "./retry.ts";
+
+/** Default Swarm Burst Cap used when `PIOLIUM_MAX_AGENTS` is unset. */
+export const DEFAULT_MAX_AGENTS = 3;
+
+/**
+ * Resolve the max concurrent background sub-agent cap (the "Swarm Burst Cap")
+ * from `PIOLIUM_MAX_AGENTS` (set via the `--plm-max-agents` flag), falling back
+ * to {@link DEFAULT_MAX_AGENTS}. Call this from inside a mode runner rather than
+ * at module load: the flag→env mirror (`applyPioliumProcessFlagEnv`) runs during
+ * command parsing, which is *after* modules are imported, so a module-level
+ * constant would capture the value before the flag takes effect.
+ */
+export function resolveBurstCap(fallback: number = DEFAULT_MAX_AGENTS): number {
+	return readPositiveIntEnv("PIOLIUM_MAX_AGENTS", fallback);
+}
 
 export interface SchedulerOptions {
-	/** Maximum simultaneous in-flight tasks. Defaults to 3. */
+	/**
+	 * Maximum simultaneous in-flight tasks. When omitted, resolves from
+	 * `PIOLIUM_MAX_AGENTS` / `--plm-max-agents` via {@link resolveBurstCap}
+	 * (default {@link DEFAULT_MAX_AGENTS}) — so a mode never has to thread the
+	 * cap through itself, and a new call site honours the flag automatically.
+	 */
 	maxConcurrent?: number;
 	/** External abort signal; aborting this aborts the scheduler and all tasks. */
 	signal?: AbortSignal;
@@ -89,7 +111,7 @@ export class Scheduler {
 	private readonly externalAbortListener?: () => void;
 
 	constructor(opts: SchedulerOptions = {}) {
-		this.maxConcurrent = Math.max(1, opts.maxConcurrent ?? 3);
+		this.maxConcurrent = Math.max(1, opts.maxConcurrent ?? resolveBurstCap());
 		this.externalSignal = opts.signal;
 		if (this.externalSignal) {
 			if (this.externalSignal.aborted) {

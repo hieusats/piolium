@@ -722,7 +722,7 @@ async function repairFindingReports(opts: {
 		`Repairing ${repairable.length} finding report(s) from draft.md before inventory.`,
 		"info",
 	);
-	const scheduler = new Scheduler({ maxConcurrent: 3, ...(signal ? { signal } : {}) });
+	const scheduler = new Scheduler(signal ? { signal } : {});
 	await Promise.allSettled(
 		repairable.map((candidate) =>
 			scheduler.enqueue({

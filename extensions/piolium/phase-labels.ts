@@ -61,6 +61,9 @@ const PHASE_LABELS: Record<string, string> = {
 	I1: "Reinvest Scope Enumeration",
 	I2: "Wave Verifier Fan-Out",
 	I3: "Cross-Agent Consensus",
+	KB0: "Knowledge Base Intake",
+	K1: "Intelligence & Inventory",
+	K2: "Knowledge Base & Attack Surface",
 };
 
 function basePhaseId(phase: string): string {

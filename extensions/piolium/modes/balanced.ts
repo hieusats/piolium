@@ -37,6 +37,7 @@ import {
 } from "../audit-state.ts";
 import { runCandidateScanAsync } from "../candidate-scan.ts";
 import { consolidateDrafts, findingsDraftDir, listFindingDirs } from "../findings.ts";
+import { ingestKnowledgeBaseForRun } from "../knowledge-base-input.ts";
 import { runReconAsync } from "../recon.ts";
 import { Scheduler } from "../scheduler.ts";
 import { cleanupConfirmArtifacts } from "./confirm.ts";
@@ -307,7 +308,7 @@ async function runL3PlusL4Parallel(
 	ui: BalancedUiHooks | undefined,
 	agentRuntime?: AgentRuntimeModel,
 ): Promise<{ failed: boolean }> {
-	const scheduler = new Scheduler({ maxConcurrent: 3, ...(signal ? { signal } : {}) });
+	const scheduler = new Scheduler(signal ? { signal } : {});
 	const settled = await Promise.allSettled([
 		scheduler.enqueue({
 			id: "L3",
@@ -375,7 +376,7 @@ async function runPerFindingPhase(
 		await applyPhaseStatus(cwd, audit, phaseName, { status: "skipped" });
 		return { failed: false };
 	}
-	const scheduler = new Scheduler({ maxConcurrent: 3, ...(signal ? { signal } : {}) });
+	const scheduler = new Scheduler(signal ? { signal } : {});
 	const results = await Promise.allSettled(
 		dirs.map((d) =>
 			scheduler.enqueue({
@@ -541,6 +542,10 @@ export async function runBalancedAudit(opts: RunBalancedOptions): Promise<RunBal
 			agent_sdk: "pi",
 		});
 	}
+
+	// Optional external-doc ingestion (--plm-knowledge-base / -raw). No-op when
+	// none supplied; the staged corpus feeds the L2 knowledge-base builder.
+	await ingestKnowledgeBaseForRun({ cwd, auditId: audit.audit_id, notify: ui?.notify });
 
 	const { agents } = loadAgents({ cwd });
 	const advisoryHunter = agents.get("advisory-hunter");

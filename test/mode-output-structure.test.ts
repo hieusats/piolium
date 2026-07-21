@@ -12,6 +12,12 @@ import {
 } from "../extensions/piolium/modes/balanced.ts";
 import { DIFF_SUMMARY } from "../extensions/piolium/modes/diff.ts";
 import {
+	KB_REPORT,
+	KB_SBOM,
+	KB_SEED,
+	KB_UNAUTH_SURFACE,
+} from "../extensions/piolium/modes/knowledge-base.ts";
+import {
 	Q1_SUMMARY,
 	Q2_SUMMARY,
 	Q3_CONSOLIDATION_MANIFEST,
@@ -63,6 +69,13 @@ describe("mode output structure", () => {
 		expect(LONGSHOT_TARGETS_PATH).toBe("piolium/attack-surface/longshot-targets.json");
 		expect(LONGSHOT_SUMMARY_PATH).toBe("piolium/attack-surface/longshot-summary.md");
 		expect(LONGSHOT_FINDINGS_DRAFT_DIR).toBe("piolium/findings-draft");
+	});
+
+	it("keeps knowledge-base durable artifacts under attack-surface", () => {
+		expect(KB_REPORT).toBe("piolium/attack-surface/knowledge-base-report.md");
+		expect(KB_SBOM).toBe("piolium/attack-surface/sbom.json");
+		expect(KB_UNAUTH_SURFACE).toBe("piolium/attack-surface/unauthenticated-surface.md");
+		expect(KB_SEED).toBe("piolium/attack-surface/knowledge-base-seed.md");
 	});
 
 	it("keeps diff, revisit, and merge durable summaries under attack-surface", () => {

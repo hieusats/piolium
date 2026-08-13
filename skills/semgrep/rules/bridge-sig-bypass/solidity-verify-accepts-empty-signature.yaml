@@ -1,0 +1,18 @@
+rules:
+  - id: solidity-verify-accepts-empty-signature
+    languages: [solidity]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-347: Improper Verification of Cryptographic Signature"
+      technology: [solidity, evm, bridge]
+      references: [nomad-rekt]
+      class: bridge-sig-bypass
+    message: >-
+      Signature verification returns true on an empty signature; empty must
+      revert. Precedent: Nomad bridge (zero-hash initializer).
+    pattern-either:
+      - pattern: if ($SIG.length == 0) { return true; }
+      - pattern: if ($SIG.length == 0) return true;

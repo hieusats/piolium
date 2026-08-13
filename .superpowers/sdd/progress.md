@@ -34,3 +34,14 @@ Task 7+8: complete (commits d7e2ba8..f7f10dd5, controller-review clean; both rus
 
 Task 9 (CodeQL Go query): DEFERRED (BLOCKED at R-5).
   Ruling: codeql/go-all does not resolve in this env by any mechanism (pack install by name + from source + resolve qlpacks + database analyze --search-path at 3 locations — all "could not resolve module go"). This is a real environment gap, not a plan defect; the plan explicitly gated Task 9 on R-5 with this outcome. Parked: CodeQL Go query deferred to a follow-on (Plan 1.5) gated on resolving codeql/go-all (likely needs the full CodeQL Go query pack distribution installed, or a CodeQL CLI rebuild). Plan 1's deliverables are complete without it.
+
+Plans 2-6 Semgrep execution (subagent tool unavailable in slot → controller-authored via TDD):
+  - Plan2 replay: Go seed (migrated) + Solidity (replay-transfer-before-state-zero) ✓
+  - Plan3 position: Go seed (migrated) ✓  (Go-only class)
+  - Plan4 oracle: Solidity (oracle-spot-reserve-as-price) ✓
+  - Plan5 reentrancy: Solidity (reentrancy-external-call-before-state-write) ✓
+  - Plan6 access-control: Solidity (access-control-privileged-fn-missing-owner) ✓
+  Calibrated idiom: pattern + modifier-exclusion (pattern-not-inside) + ruleid annotation directly above trigger line.
+Ruling 6: controller-authored Solidity rules directly (subagent tool not in slot) — cost: no isolated worker context; iterations consumed controller context.
+DEFERRED (fresh session): oracle-Rust, access-control-Rust, access-control-Go (3 rules); ALL CodeQL (R-5: codeql/go-all env unresolvable); corpus noise checks.
+Total shipped: 10 validated Semgrep rules (Go/Rust/Solidity) across 6 of 12 classes + taxonomy + auto-load wiring + R-4 recall/precision validated.

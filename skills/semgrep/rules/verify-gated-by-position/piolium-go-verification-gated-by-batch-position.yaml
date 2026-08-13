@@ -1,0 +1,28 @@
+rules:
+  - id: piolium-go-verification-gated-by-batch-position
+    languages: [go]
+    severity: WARNING
+    metadata:
+      category: security
+      confidence: MEDIUM
+      impact: HIGH
+      cwe: "CWE-345: Insufficient Verification of Data Authenticity"
+      technology: [go, blockchain, sync]
+    message: >-
+      A verify/seal/sync/insert function uses a batch-position test (n % M == 0)
+      to gate whether per-item verification runs. When the modulo is false, ~M-1
+      of every M items receive NO verification — verification becomes positional
+      (by batch index) rather than per-item cryptographic. Confirm each item's
+      own signature/seal is verified unconditionally, not only at batch
+      boundaries. Precedent: Harmony H1 long-range-sync signature bypass.
+    patterns:
+      - pattern-inside: |
+          func $F(...) $RET {
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(verify|seal|sync|insert|import|process|update).*"
+      - pattern-either:
+          - pattern: $N % $M == 0
+          - pattern: $N % $M != 0

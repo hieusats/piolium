@@ -1,0 +1,38 @@
+rules:
+  - id: piolium-go-replay-key-from-unauthenticated-field
+    languages: [go]
+    severity: WARNING
+    metadata:
+      category: security
+      confidence: MEDIUM
+      impact: HIGH
+      cwe: "CWE-345: Insufficient Verification of Data Authenticity"
+      technology: [go, blockchain, bridge]
+      references:
+        - https://rekt.news/mirror-rekt
+    message: >-
+      Idempotency / replay-protection key is derived from a mutable identity
+      field of a proof/message (BlockNum / ShardID / Nonce / Sequence / Index, or
+      a MerkleProof sub-field) instead of a cryptographically-authenticated value
+      (the signed Header hash). An attacker can mutate those unbound fields so a
+      genuine, already-applied item hashes to a fresh "unseen" key and is
+      credited again -> replay -> unauthorized mint/credit. Derive the key from
+      the signed/authenticated header hash. Precedent: Mirror unlock_position_funds
+      duplicate-call, Harmony CRIT-2026 CX-receipt replay mint.
+    patterns:
+      - pattern-inside: |
+          func $F(...) $RET {
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(spent|replay|dedup|processed|seen|consume|applied).*"
+      - pattern-either:
+          - pattern: $K := $P.MerkleProof.$F
+          - pattern: $K := $P.BlockNum
+          - pattern: $K := $P.Nonce
+          - pattern: $K := $P.Sequence
+          - pattern: $K := $P.ShardID
+          - pattern: $K := $P.Index
+          - pattern: $K := $P.MerkleProof.ShardID
+          - pattern: $K := $P.MerkleProof.BlockNum

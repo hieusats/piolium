@@ -1,0 +1,30 @@
+rules:
+  - id: solidity-replay-transfer-before-state-zero
+    languages: [solidity]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-841: Improper Enforcement of Behavioral Workflow"
+      technology: [solidity, evm]
+      references: [mirror-rekt]
+      class: replay-missing-idempotency
+    message: >-
+      Value transfer (transfer/send/call) in a claim/withdraw/redeem function
+      without a nonReentrant guard — a reentrant or duplicate call can
+      double-send before state is zeroed. Apply nonReentrant + checks-effects-
+      interactions. Precedent: Mirror unlock_position_funds duplicate-call.
+    patterns:
+      - pattern: payable($X).transfer($Y);
+      - metavariable-regex:
+          metavariable: $X
+          regex: "msg\\.sender"
+      - pattern-not-inside: |
+          function $F(...) public nonReentrant {
+            ...
+          }
+      - pattern-not-inside: |
+          function $F(...) external nonReentrant {
+            ...
+          }

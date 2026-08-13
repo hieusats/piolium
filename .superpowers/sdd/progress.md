@@ -13,3 +13,7 @@ Plan/spec copied into fork docs/superpowers/{specs,plans}/.
 ## Progress
 
 Task 1: complete (controller workspace setup; fork created+pushed, scaffolded, plan/spec copied; commit 8c0ed6fb on rekt-rules).
+
+Task 2: complete (commits 53cf8e5..0af248c7, controller-review clean).
+  - Minor (deferred to final review): Ronin misclassified into bridge-sig-bypass via `quorum` regex token (Ronin was off-chain key-compromise). Fix: drop `quorum` from bridge-sig-bypass regex in map_tags.py; no legitimate anchor lost. Misleads future rule references if unfixed.
+Ruling 5: controller-reviews low-risk data/config tasks; full reviewer-subagent reserved for rule-authoring (T7-9) + R-4/R-5 validation (T6).

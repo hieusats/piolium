@@ -228,6 +228,8 @@ codeql resolve queries "$SUITE_FILE" | wc -l
 
 #### Run analysis
 
+> **Piolium curated qlpack search path:** derive `PKG_ROOT` by applying `dirname()` three times to THIS skill file's path (`skills/codeql/workflows/run-analysis.md` → `workflows` → `codeql` → `skills` → `PKG_ROOT`). Pass `--search-path="$PKG_ROOT/skills/codeql/queries"` so the bundled `piolium/go-exploit-queries` qlpack resolves. NOTE: `codeql/go-queries` must also resolve; if `codeql resolve qlpacks` does not list it, run `codeql pack install codeql/go-queries` once.
+
 Output goes to `$RAW_DIR/results.sarif` (unfiltered). The final results are produced in Step 5.
 
 ```bash
@@ -238,6 +240,7 @@ codeql database analyze $DB_NAME \
   $THREAT_MODEL_FLAG \
   $MODEL_PACK_FLAGS \
   $ADDITIONAL_PACK_FLAGS \
+  --search-path="$PKG_ROOT/skills/codeql/queries" \
   -- "$SUITE_FILE"
 ```
 

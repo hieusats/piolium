@@ -123,9 +123,12 @@ The algorithm covers:
   "python": ["p/python", "p/django"],
   "javascript": ["p/javascript", "p/react", "p/nodejs"],
   "docker": ["p/dockerfile"],
-  "third_party": ["https://github.com/trailofbits/semgrep-rules"]
+  "third_party": ["https://github.com/trailofbits/semgrep-rules"],
+  "curated": ["<PKG>/skills/semgrep/rules"]
 }
 ```
+
+> **Piolium curated exploit-class rules (always included):** derive `<PKG>` by applying `dirname()` three times to THIS workflow file's path (`skills/semgrep/workflows/scan-workflow.md` → `workflows` → `semgrep` → `skills` → `<PKG>`). Append the absolute path `<PKG>/skills/semgrep/rules` to the ruleset JSON under the `curated` key. The scanner runs it in-place as a local `--config` (no clone, no delete).
 
 ---
 

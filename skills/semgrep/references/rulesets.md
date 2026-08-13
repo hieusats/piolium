@@ -16,6 +16,12 @@
 | `p/findsecbugs` | FindSecBugs rule pack for Java | Java security |
 | `p/phpcs-security-audit` | PHP security audit rules | PHP security |
 
+### Piolium Curated Exploit-Class Rules (Always Included)
+
+| Ruleset | Description | Resolution |
+|---------|-------------|------------|
+| `skills/semgrep/rules` | Curated exploit-class rules grounded in the rekt ledger (bridge-sig-bypass, replay, oracle, reentrancy, access-control, …) | Bundled local dir; **always included**; resolved to the package's absolute `skills/semgrep/rules` path and run in-place as a local `--config` (no clone, no delete) |
+
 ### CI/CD Rulesets
 
 | Ruleset | Description | Use Case |
@@ -49,6 +55,7 @@ Follow this algorithm to select rulesets based on detected languages and framewo
 
 - `p/security-audit` - Comprehensive vulnerability detection (always include)
 - `p/secrets` - Hardcoded credentials, API keys, tokens (always include)
+- `skills/semgrep/rules` - Piolium curated exploit-class rules (always included; see Piolium Curated subsection above)
 
 ### Step 2: Add Language-Specific Rulesets
 

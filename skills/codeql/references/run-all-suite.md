@@ -58,6 +58,12 @@ for PACK in $INSTALLED_THIRD_PARTY_PACKS; do
 PACK_ENTRY
 done
 
+# Append the Piolium curated exploit-class qlpack (ships with this package)
+cat >> "$SUITE_FILE" << CURATED
+- queries: .
+  from: piolium/go-exploit-queries
+CURATED
+
 # Append minimal filtering rules (quoted heredoc — no expansion needed)
 cat >> "$SUITE_FILE" << 'FILTERS'
 - include:

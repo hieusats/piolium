@@ -1,0 +1,19 @@
+rules:
+  - id: solidity-oracle-spot-reserve-as-price
+    languages: [solidity]
+    severity: WARNING
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-1164: Irrelevant Code"
+      technology: [solidity, evm, defi]
+      references: [pancakebunny-rekt, cream-rekt-2]
+      class: oracle-spot-no-twap
+    message: >-
+      AMM spot reserves (getReserves/balanceOf) used as a price source —
+      flashloan-manipulable. Use a TWAP or Chainlink oracle. Precedent:
+      PancakeBunny (spot LP valuation), Cream (pricePerShare).
+    pattern-either:
+      - pattern: $X.getReserves()
+      - pattern: $X.token0()

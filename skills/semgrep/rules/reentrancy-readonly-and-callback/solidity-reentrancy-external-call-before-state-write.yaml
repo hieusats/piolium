@@ -1,0 +1,26 @@
+rules:
+  - id: solidity-reentrancy-external-call-before-state-write
+    languages: [solidity]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-841: Improper Enforcement of Behavioral Workflow"
+      technology: [solidity, evm]
+      references: [fei-rari-rekt, curve-vyper-rekt]
+      class: reentrancy-readonly-and-callback
+    message: >-
+      External call (transferFrom/transfer/call) in a value path with no
+      nonReentrant guard — classic CEI reentrancy. Apply nonReentrant +
+      checks-effects-interactions. Precedent: Fei-Rari cETH, Curve/Vyper.
+    patterns:
+      - pattern: $T.transferFrom($FROM, $TO, $AMT);
+      - pattern-not-inside: |
+          function $F(...) public nonReentrant {
+            ...
+          }
+      - pattern-not-inside: |
+          function $F(...) external nonReentrant {
+            ...
+          }

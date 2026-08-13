@@ -1,0 +1,30 @@
+rules:
+  - id: solidity-access-control-privileged-fn-missing-owner
+    languages: [solidity]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-862: Missing Authorization"
+      technology: [solidity, evm]
+      references: [gala-games-rekt, hedgey-finance-rekt]
+      class: access-control-unprotected
+    message: >-
+      Privileged operation (_mint/_upgradeTo/transferOwnership) reachable from a
+      public/external function with no onlyOwner/onlyRole guard — anyone can
+      call it. Add an access modifier. Precedent: Gala (dormant minter), Hedgey.
+    patterns:
+      - pattern: _mint($TO, $AMT);
+      - pattern-not-inside: |
+          function $F(...) public onlyOwner {
+            ...
+          }
+      - pattern-not-inside: |
+          function $F(...) external onlyOwner {
+            ...
+          }
+      - pattern-not-inside: |
+          function $F(...) public onlyRole($R) {
+            ...
+          }

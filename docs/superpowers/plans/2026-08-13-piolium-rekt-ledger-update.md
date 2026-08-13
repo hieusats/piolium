@@ -51,7 +51,8 @@
 
 ```bash
 cd /home/hieusats/dev   # fresh writable dir OUTSIDE the read-only harmoney audit clone
-gh repo fork vigolium/piolium --clone --remote   # creates github.com/hieusats/piolium
+gh repo fork vigolium/piolium --clone   # NOTE: --remote is unsupported with an explicit repo arg (Ruling 4); upstream remote added separately below
+git remote add upstream https://github.com/vigolium/piolium.git
 cd piolium
 git checkout -b rekt-rules
 ```

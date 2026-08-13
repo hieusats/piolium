@@ -1,0 +1,28 @@
+rules:
+  - id: rust-oracle-spot-balance-as-price
+    languages: [rust]
+    severity: WARNING
+    metadata:
+      category: security
+      confidence: MEDIUM
+      impact: HIGH
+      cwe: "CWE-1164: Irrelevant Code"
+      technology: [rust, solana, blockchain, oracle]
+      references: [mango-markets-rekt]
+      class: oracle-spot-no-twap
+    message: >-
+      A spot AMM/account balance (lamports/reserve) is read and used as a price
+      for valuation inside a price/value function. Spot balances are flash-loan/
+      single-tx manipulable; use a TWAP or committed oracle. Precedent: Mango
+      Markets (manipulate perp oracle -> borrow collateral).
+    patterns:
+      - pattern-inside: |
+          fn $F(...) -> $RET {
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(price|value|collat|reward|quote|valuation).*"
+      - pattern-either:
+          - pattern: $X.lamports()
+          - pattern: let $RESERVE = $X.lamports();

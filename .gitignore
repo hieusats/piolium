@@ -8,3 +8,5 @@ coverage/
 .env.local
 __pycache__/
 *.pyc
+.pi/
+.superpowers/

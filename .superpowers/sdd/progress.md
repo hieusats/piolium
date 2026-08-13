@@ -17,3 +17,20 @@ Task 1: complete (controller workspace setup; fork created+pushed, scaffolded, p
 Task 2: complete (commits 53cf8e5..0af248c7, controller-review clean).
   - Minor (deferred to final review): Ronin misclassified into bridge-sig-bypass via `quorum` regex token (Ronin was off-chain key-compromise). Fix: drop `quorum` from bridge-sig-bypass regex in map_tags.py; no legitimate anchor lost. Misleads future rule references if unfixed.
 Ruling 5: controller-reviews low-risk data/config tasks; full reviewer-subagent reserved for rule-authoring (T7-9) + R-4/R-5 validation (T6).
+
+Task 3+4: complete (commits 0af248c7..4faf18c7, controller-review clean). Risk for T6: "curated" JSON key may not be consumed by scanner -> fallback merge into baseline.
+Task 5: complete (controller; migrated 2 go seeds, semgrep --test both pass).
+
+Task 6 (R-4 validation): PASS (controller; no pi-install/pi-remove per Ruling 3).
+  - wiring present (scan-workflow curated emission + run-analysis --search-path) ✓
+  - recall: `semgrep --config skills/semgrep/rules` fires piolium-go-quorum-counts-roster-size-not-signers @ line 76 on pre-patch verifier.go ✓
+  - precision: 0 hits on patched HEAD consensus/quorum/ ✓
+  - curated dir loads + validates ✓
+  - NOTE: earlier single-rule 0s were a path TYPO (assumed non-existent nested subdir); files are flat under bridge-sig-bypass/. Not a defect.
+  - DEFERRED (Ruling 3): full skill auto-load (pi agent emitting curated into a real scan) = manual user confirm; "replace npm piolium" = final user-confirmed step.
+
+Task 7+8: complete (commits d7e2ba8..f7f10dd5, controller-review clean; both rust+solidity rules pass semgrep --test, metadata correct).
+  - Deferred (final review): corpus noise check on a real Solidity/Rust repo (none on machine).
+
+Task 9 (CodeQL Go query): DEFERRED (BLOCKED at R-5).
+  Ruling: codeql/go-all does not resolve in this env by any mechanism (pack install by name + from source + resolve qlpacks + database analyze --search-path at 3 locations — all "could not resolve module go"). This is a real environment gap, not a plan defect; the plan explicitly gated Task 9 on R-5 with this outcome. Parked: CodeQL Go query deferred to a follow-on (Plan 1.5) gated on resolving codeql/go-all (likely needs the full CodeQL Go query pack distribution installed, or a CodeQL CLI rebuild). Plan 1's deliverables are complete without it.

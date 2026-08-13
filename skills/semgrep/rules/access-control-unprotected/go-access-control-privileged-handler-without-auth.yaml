@@ -1,0 +1,33 @@
+rules:
+  - id: go-access-control-privileged-handler-without-auth
+    languages: [go]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-862: Missing Authorization"
+      technology: [go, blockchain]
+      references: [gala-games-rekt, hedgey-finance-rekt]
+      class: access-control-unprotected
+    message: >-
+      Privileged handler (Mint / SetAdmin / GrantRole / Upgrade /
+      TransferOwnership) performs the privileged action with no caller/owner
+      authorization check. Any caller can invoke it (e.g. dormant minter key,
+      unvalidated privileged param). Add an owner/role check before the action.
+      Precedent: Gala Games (dormant minter), Hedgey Finance (unvalidated
+      privileged parameter).
+    patterns:
+      - pattern-either:
+          - pattern-inside: |
+              func $F(...) {
+                ...
+              }
+          - pattern-inside: |
+              func $F(...) $RET {
+                ...
+              }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(Mint|SetAdmin|GrantRole|GrantAdmin|Upgrade|TransferOwnership|MintTo).*"
+      - pattern-not-regex: "(isOwner|requireAuth|OnlyOwner|hasRole|checkAdmin|verifyCaller|authenticate|Authorize)"

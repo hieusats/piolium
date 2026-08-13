@@ -1,0 +1,35 @@
+rules:
+  - id: piolium-go-verify-accepts-empty-signature
+    languages: [go]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-347: Improper Verification of Cryptographic Signature"
+      technology: [go, blockchain, crypto]
+      references:
+        - https://rekt.news/nomad-rekt
+    message: >-
+      A signature/proof verification function returns SUCCESS (true / nil error)
+      when the signature is empty. An empty or all-zero byte slice is not a valid
+      signature; accepting it lets an attacker bypass verification by submitting
+      no signature (and, for aggregate schemes, an identity/zero signature can
+      verify against an empty aggregate key). Empty must be a hard rejection.
+      Precedent: Nomad bridge (zero-hash initializer), BLS identity acceptance.
+    patterns:
+      - pattern-inside: |
+          func $F(...) $RET {
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(verify|check|valid).*(sig|sign|seal|commit|bls|ecrecover|proof|hash|message|msg)|.*verify(sig|sign|seal).*"
+      - pattern-either:
+          - pattern: if len($SIG) == 0 { return true }
+          - pattern: if len($SIG) == 0 { return nil }
+          - pattern: if len($SIG) == 0 { return true, nil }
+          - pattern: if len($SIG) == 0 { return nil, nil }
+          - pattern: if len($SIG) < 1 { return true }
+          - pattern: if len($SIG) < 1 { return nil }
+          - pattern: if len($SIG) < 1 { return true, nil }

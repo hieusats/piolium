@@ -1,0 +1,40 @@
+rules:
+  - id: piolium-go-quorum-counts-roster-size-not-signers
+    languages: [go]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-697: Incorrect Comparison"
+      technology: [go, blockchain, consensus]
+      references:
+        - https://rekt.news/nomad-rekt
+        - https://rekt.news/polynetwork-rekt
+        - https://rekt.news/wormhole-rekt
+    message: >-
+      Quorum/threshold decision uses len() of the full ROSTER (all members/keys/
+      signatures) as the participant count instead of counting the elements that
+      are actually present/enabled. A roster is always >= its own 2/3 fraction,
+      so an empty or under-filled signer set satisfies the check trivially; with
+      an aggregate/identity signature a forged commit then passes quorum with no
+      private keys. Count the ENABLED/MATCHED elements (bit count of the signed
+      mask) instead. Precedent: Poly Network, Wormhole, Nomad, and the Harmony
+      CRIT-2026 ~4B mint.
+    patterns:
+      - pattern-inside: |
+          func $F(...) bool {
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(quorum|threshold|verifysig|verifyseal|verifymask|verifycommit|attest).*"
+      - pattern-either:
+          - pattern: $GOT := int64(len($COLL))
+          - pattern: $GOT := int(len($COLL))
+          - pattern: $GOT := len($COLL)
+          - pattern: len($COLL) > $T
+          - pattern: len($COLL) >= $T
+      - metavariable-regex:
+          metavariable: $COLL
+          regex: "(?i).*(publics|signers|signatures|pubkeys|pub_keys|validators|committee|members|attesters)$"

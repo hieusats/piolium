@@ -3,30 +3,245 @@
   "id": "3ec4b8bc-41f7-48f0-b65b-5569055d8c01",
   "title": "You are implementing Tasks 3 and 4 (batched — same-shape wiring edits) of the piolium exploit-cla...",
   "objective": "You are implementing Tasks 3 and 4 (batched — same-shape wiring edits) of the piolium exploit-class rule-library plan.\nWork in /home/hieusats/dev/piolium (branch rekt-rules). Goal: wire BOTH scan skills to auto-include the curated rule pack with no per-audit manual step.\n\nRead FIRST — your requirements, with exact values to use verbatim:\n  the '## Task 3' and '## Task 4' sections of docs/superpowers/plans/2026-08-13-piolium-rekt-ledger-update.md. Follow them precisely.\n\nConcrete mechanism (do not hand-wave): the executing skill knows its own file path. PKG = apply dirname() three times to the workflow file's path. For semgrep: workflow file = skills/semgrep/workflows/scan-workflow.md (workflows->semgrep->skills->PKG). For codeql: skills/codeql/workflows/run-analysis.md (workflows->codeql->skills->PKG). The curated dirs are PKG/skills/semgrep/rules and PKG/skills/codeql/queries.\n\nTask 3 (semgrep):\n  - skills/semgrep/references/rulesets.md: add a 'Piolium Curated Exploit-Class Rules' subsection under Security-Focused Rulesets, marked ALWAYS INCLUDED, resolving to the bundled skills/semgrep/rules dir.\n  - skills/semgrep/workflows/scan-workflow.md Step 2 (select rulesets): add a curated-baseline step that derives PKG (dirname x3 from this workflow file) and appends the absolute path PKG/skills/semgrep/rules to the ruleset JSON under key 'curated'; note it is read in-place as a local --config (no clone, no delete).\nTask 4 (codeql):\n  - skills/codeql/workflows/run-analysis.md Step 4: add --search-path=PKG/skills/codeql/queries to the `codeql database analyze` command. Note: codeql/go-queries must also resolve; if `codeql resolve qlpacks` doesn't list it, run `codeql pack install codeql/go-queries` once.\n  - skills/codeql/references/run-all-suite.md generation script: after the third-party-pack loop, append `- queries: .` + `  from: piolium/go-exploit-queries`.\n\nIMPORTANT: READ each target file first and edit surgically (preserve existing structure/numbering). Do NOT rewrite whole files.\n\nGlobal constraints: the fork replaces npm piolium (single source of truth); auto-load must need zero per-audit manual config.\nDo NOT dispatch subagents. Commit + push. Write a full report to .superpowers/sdd/task-3-4-report.md (the exact diffs/sections changed in each of the 4 files, verbatim).\nReturn ONLY: status (DONE|DONE_WITH_CONCERNS|BLOCKED), commit SHA, one-line summary, concerns.",
-  "status": "active",
+  "status": "completed",
   "createdAt": "2026-08-13T03:43:30.541Z",
-  "updatedAt": "2026-08-13T03:45:56.649Z",
-  "runs": [],
+  "updatedAt": "2026-08-13T03:46:37.835Z",
+  "runs": [
+    {
+      "runId": "call_bd5801d5035241d88f2b7ce3",
+      "mode": "workflow",
+      "agent": "worker",
+      "status": "completed",
+      "startedAt": "2026-08-13T03:46:37.835Z",
+      "completedAt": "2026-08-13T03:46:37.835Z",
+      "usage": {
+        "tokens": 28340
+      }
+    }
+  ],
   "workflowChildren": [
     {
       "workflowRunId": "call_bd5801d5035241d88f2b7ce3",
       "key": "wiring",
-      "status": "running",
+      "status": "completed",
       "startedAt": "2026-08-13T03:43:30.560Z",
-      "updatedAt": "2026-08-13T03:45:56.649Z",
-      "artifactPaths": [],
+      "updatedAt": "2026-08-13T03:46:37.832Z",
+      "artifactPaths": [
+        "/home/hieusats/.pi/agent/sessions/--home-hieusats-dev-btc-harmoney--/2026-08-13T03-43-30-597Z_019ff937-c925-76b5-9e10-997fe32afb1a.jsonl"
+      ],
+      "runId": "f97ab78e",
       "agent": "worker",
       "task": "You are implementing Tasks 3 and 4 (batched — same-shape wiring edits) of the piolium exploit-class rule-library plan.\nWork in /home/hieusats/dev/piolium (branch rekt-rules). Goal: wire BOTH scan skills to auto-include the curated rule pack with no per-audit manual step.\n\nRead FIRST — your requirements, with exact values to use verbatim:\n  the '## Task 3' and '## Task 4' sections of docs/superpowers/plans/2026-08-13-piolium-rekt-ledger-update.md. Follow them precisely.\n\nConcrete mechanism (do not hand-wave): the executing skill knows its own file path. PKG = apply dirname() three times to the workflow file's path. For semgrep: workflow file = skills/semgrep/workflows/scan-workflow.md (workflows->semgrep->skills->PKG). For codeql: skills/codeql/workflows/run-analysis.md (workflows->codeql->skills->PKG). The curated dirs are PKG/skills/semgrep/rules and PKG/skills/codeql/queries.\n\nTask 3 (semgrep):\n  - skills/semgrep/references/rulesets.md: add a 'Piolium Curated Exploit-Class Rules' subsection under Security-Focused Rulesets, marked ALWAYS INCLUDED, resolving to the bundled skills/semgrep/rules dir.\n  - skills/semgrep/workflows/scan-workflow.md Step 2 (select rulesets): add a curated-baseline step that derives PKG (dirname x3 from this workflow file) and appends the absolute path PKG/skills/semgrep/rules to the ruleset JSON under key 'curated'; note it is read in-place as a local --config (no clone, no delete).\nTask 4 (codeql):\n  - skills/codeql/workflows/run-analysis.md Step 4: add --search-path=PKG/skills/codeql/queries to the `codeql database analyze` command. Note: codeql/go-queries must also resolve; if `codeql resolve qlpacks` doesn't list it, run `codeql pack install codeql/go-queries` once.\n  - skills/codeql/references/run-all-suite.md generation script: after the third-party-pack loop, append `- queries: .` + `  from: piolium/go-exploit-queries`.\n\nIMPORTANT: READ each target file first and edit surgically (preserve existing structure/numbering). Do NOT rewrite whole files.\n\nGlobal constraints: the fork replaces npm piolium (single source of truth); auto-load must need zero per-audit manual config.\nDo NOT dispatch subagents. Commit + push. Write a full report to .superpowers/sdd/task-3-4-report.md (the exact diffs/sections changed in each of the 4 files, verbatim).\nReturn ONLY: status (DONE|DONE_WITH_CONCERNS|BLOCKED), commit SHA, one-line summary, concerns.",
+      "completedAt": "2026-08-13T03:46:37.832Z",
       "sessionPath": "/home/hieusats/.pi/agent/sessions/--home-hieusats-dev-btc-harmoney--/2026-08-13T03-43-30-597Z_019ff937-c925-76b5-9e10-997fe32afb1a.jsonl",
       "heartbeat": {
-        "updatedAt": "2026-08-13T03:45:56.649Z",
-        "status": "running"
+        "updatedAt": "2026-08-13T03:46:37.832Z",
+        "status": "completed"
       }
     }
   ],
   "decisions": [],
-  "artifacts": [],
+  "artifacts": [
+    {
+      "kind": "output",
+      "path": "/home/hieusats/dev/piolium/.pi/subagents/artifacts/f97ab78e_worker_0_output.md"
+    },
+    {
+      "kind": "other",
+      "path": "/home/hieusats/dev/piolium/.pi/subagents/artifacts/f97ab78e_worker_0_transcript.jsonl",
+      "description": "Child transcript"
+    }
+  ],
   "receipts": [],
   "cwd": "/home/hieusats/dev/piolium",
-  "ownerSessionId": "/home/hieusats/.pi/agent/sessions/--home-hieusats-dev-btc-harmoney--/2026-08-12T21-22-01-104Z_019ff7da-8510-7091-bdfe-2f27f2e19b10.jsonl"
+  "ownerSessionId": "/home/hieusats/.pi/agent/sessions/--home-hieusats-dev-btc-harmoney--/2026-08-12T21-22-01-104Z_019ff7da-8510-7091-bdfe-2f27f2e19b10.jsonl",
+  "summary": "Workflow completed.\n\nReturn:\n**Tasks 3+4 complete** — commit `4faf18c3`, pushed. All 6 wiring edits applied + grep-verified; the curated rule dir is now auto-derived + always-included in both scan skills with zero per-audit manual config.\n\nStatus: **DONE**\n\nCall trace:\n- run wiring: started\n- run wiring: completed (f97ab78e) in 187273ms",
+  "acceptance": {
+    "status": "review-required",
+    "evidenceStatus": "checked",
+    "explicit": false,
+    "effectiveAcceptance": {
+      "level": "checked",
+      "explicit": false,
+      "inferredReason": [
+        "risky write-capable run"
+      ],
+      "criteria": [
+        {
+          "id": "criterion-1",
+          "must": "Implement the requested change without widening scope",
+          "evidence": [
+            "changed-files",
+            "tests-added",
+            "commands-run",
+            "residual-risks",
+            "no-staged-files"
+          ],
+          "severity": "required"
+        },
+        {
+          "id": "criterion-2",
+          "must": "Return evidence sufficient for an independent acceptance review",
+          "evidence": [
+            "changed-files",
+            "tests-added",
+            "commands-run",
+            "residual-risks",
+            "no-staged-files"
+          ],
+          "severity": "required"
+        }
+      ],
+      "evidence": [
+        "changed-files",
+        "tests-added",
+        "commands-run",
+        "residual-risks",
+        "no-staged-files"
+      ],
+      "verify": [],
+      "review": {
+        "agent": "reviewer",
+        "required": true
+      },
+      "stopRules": []
+    },
+    "inferredReason": [
+      "risky write-capable run"
+    ],
+    "criteria": [
+      {
+        "id": "criterion-1",
+        "must": "Implement the requested change without widening scope",
+        "evidence": [
+          "changed-files",
+          "tests-added",
+          "commands-run",
+          "residual-risks",
+          "no-staged-files"
+        ],
+        "severity": "required"
+      },
+      {
+        "id": "criterion-2",
+        "must": "Return evidence sufficient for an independent acceptance review",
+        "evidence": [
+          "changed-files",
+          "tests-added",
+          "commands-run",
+          "residual-risks",
+          "no-staged-files"
+        ],
+        "severity": "required"
+      }
+    ],
+    "runtimeChecks": [
+      {
+        "id": "criterion:criterion-1",
+        "status": "passed",
+        "message": "Required criterion 'criterion-1' satisfied."
+      },
+      {
+        "id": "criterion:criterion-2",
+        "status": "passed",
+        "message": "Required criterion 'criterion-2' satisfied."
+      },
+      {
+        "id": "evidence:changed-files",
+        "status": "passed",
+        "message": "changed-files evidence present."
+      },
+      {
+        "id": "evidence:tests-added",
+        "status": "not-applicable",
+        "message": "tests-added evidence explicitly reported as not applicable."
+      },
+      {
+        "id": "evidence:commands-run",
+        "status": "passed",
+        "message": "commands-run evidence present."
+      },
+      {
+        "id": "evidence:residual-risks",
+        "status": "passed",
+        "message": "residual-risks evidence present."
+      },
+      {
+        "id": "evidence:no-staged-files",
+        "status": "passed",
+        "message": "no-staged-files evidence present."
+      },
+      {
+        "id": "no-staged-files",
+        "status": "passed",
+        "message": "No staged files detected."
+      }
+    ],
+    "verifyRuns": [],
+    "childReport": {
+      "criteriaSatisfied": [
+        {
+          "id": "criterion-1",
+          "status": "satisfied",
+          "evidence": "Implemented exactly Tasks 3+4 as specified: semgrep catalog subsection + baseline bullet + scan-workflow curated JSON key + derivation note; codeql analyze --search-path flag + PKG_ROOT note + run-all-suite curated qlpack entry. No scope widening — only the 4 named skill files edited."
+        },
+        {
+          "id": "criterion-2",
+          "status": "satisfied",
+          "evidence": "Per-file diff recorded in .superpowers/sdd/task-3-4-report.md; grep counts verify each change landed; commit 4faf18c3 on rekt-rules pushed to origin."
+        }
+      ],
+      "changedFiles": [
+        "skills/semgrep/references/rulesets.md",
+        "skills/semgrep/workflows/scan-workflow.md",
+        "skills/codeql/workflows/run-analysis.md",
+        "skills/codeql/references/run-all-suite.md",
+        ".superpowers/sdd/task-3-4-report.md"
+      ],
+      "testsAddedOrUpdated": [],
+      "commandsRun": [
+        {
+          "command": "python3 wiring-edits (6 surgical assertions, all OK)",
+          "result": "passed",
+          "summary": "6 edits applied, each asserted-present before write"
+        },
+        {
+          "command": "grep -c verification on all 4 skill files",
+          "result": "passed",
+          "summary": "rulesets=1, scan-workflow=2, run-analysis=2, run-all-suite=1 curated/search-path refs"
+        },
+        {
+          "command": "git commit + push",
+          "result": "passed",
+          "summary": "0af248c..4faf18c rekt-rules -> origin"
+        }
+      ],
+      "validationOutput": [
+        "rulesets.md: 1 'Piolium Curated Exploit-Class Rules' subsection",
+        "scan-workflow.md: 2 'curated' refs (JSON key + derivation note)",
+        "run-analysis.md: 2 PKG_ROOT/skills/codeql/queries refs (note + flag)",
+        "run-all-suite.md: 1 piolium/go-exploit-queries suite entry"
+      ],
+      "residualRisks": [
+        "Wiring is markdown-only; actual empirical auto-load confirmation is Task 6 (deferred per plan).",
+        "codeql/go-queries must resolve at scan time; requires `codeql pack install codeql/go-queries` if `codeql resolve qlpacks` doesn't list it (noted in run-analysis.md)."
+      ],
+      "noStagedFiles": true,
+      "diffSummary": "Added always-included curated-rule auto-include to both scan skills: semgrep gets a catalog subsection + baseline bullet + scan-workflow JSON 'curated' key with dirname×3 PKG derivation; codeql gets a --search-path flag + run-all-suite curated qlpack entry. 4 skill files + 1 report.",
+      "reviewFindings": [
+        "no blockers"
+      ],
+      "manualNotes": "The commit also swept in .superpowers/sdd/task-2-report.md (Task 2's SDD artifact) and a .pi/subagents/missions scratch file; harmless but the controller may want to gitignore .pi/ later."
+    },
+    "reviewResult": {
+      "status": "review-required",
+      "findings": [
+        {
+          "severity": "non-blocking",
+          "issue": "Independent review has not been supplied.",
+          "rationale": "The run cannot be marked reviewed from child evidence alone."
+        }
+      ]
+    }
+  }
 }

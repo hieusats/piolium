@@ -1,0 +1,28 @@
+rules:
+  - id: rust-verify-accepts-empty-signature
+    languages: [rust]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-347: Improper Verification of Cryptographic Signature"
+      technology: [rust, blockchain, crypto]
+      references: [nomad-rekt, wormhole-rekt]
+      class: bridge-sig-bypass
+    message: >-
+      Signature verification returns success on an empty signature; empty must
+      be a hard rejection. Precedent: Nomad (zero-hash initializer), Wormhole.
+    patterns:
+      - pattern-inside: |
+          fn $F(...) -> $RET {
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(verify|check|valid).*(sig|sign|seal)|.*verify.*"
+      - pattern-either:
+          - pattern: if $SIG.is_empty() { return true; }
+          - pattern: if $SIG.is_empty() { return Ok(true); }
+          - pattern: if $SIG.is_empty() { return Ok(()); }
+          - pattern: if $SIG.len() == 0 { return true; }

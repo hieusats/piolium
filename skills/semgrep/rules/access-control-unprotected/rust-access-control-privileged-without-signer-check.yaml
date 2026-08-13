@@ -1,0 +1,27 @@
+rules:
+  - id: rust-access-control-privileged-without-signer-check
+    languages: [rust]
+    severity: ERROR
+    metadata:
+      category: security
+      confidence: HIGH
+      impact: HIGH
+      cwe: "CWE-862: Missing Authorization"
+      technology: [rust, solana, blockchain]
+      references: [drift-protocol-rekt]
+      class: access-control-unprotected
+    message: >-
+      Privileged instruction (mint_authority / set_authority / withdraw_admin /
+      upgrade) performs the action without a signer/owner/authority check. A
+      caller with no privilege can invoke it. Add a require!(...is_signer) /
+      has_authority / #[access_control] guard. Precedent: Drift Protocol
+      (multisig-key -> self-issued fake collateral).
+    patterns:
+      - pattern: |
+          pub fn $F(...) -> Result<$R, $E> {
+            ...
+          }
+      - metavariable-regex:
+          metavariable: $F
+          regex: "(?i).*(mint_authority|mint_to|set_authority|withdraw_admin|upgrade|grant).*"
+      - pattern-not-regex: "(is_signer|require!|has_authority|access_control|only_owner|owner_is)"

@@ -1,0 +1,1820 @@
+[
+  {
+    "mechanism_tag": "weak-key-entropy-32bit",
+    "slug": "the-one-that-got-away",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "blind-signed-ui-tx",
+    "slug": "bybit-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "validator-key-leak-5of9-quorum",
+    "slug": "ronin-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "crosschain-manager-key-params-grind",
+    "slug": "polynetwork-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "forged-IAVL-merkle-proof",
+    "slug": "bnb-bridge-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "control-fraud-comingle-deposits",
+    "slug": "sbf-mask-off",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "guardian-sig-set-spoof-sysvar-mismatch",
+    "slug": "wormhole-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-signing-service-compromise",
+    "slug": "dmm-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "single-dvn-rpc-poisoning-forged-burn",
+    "slug": "kelpdao-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "multisig-key-compromise->self-issued-fake-collateral",
+    "slug": "drift-protocol-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "safe-proxy-upgrade-disguised-as-transfer",
+    "slug": "wazirx-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "CLMM-overflow-checked_shlw-narrow-band",
+    "slug": "cetus-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "dormant-minter-key-compromise",
+    "slug": "gala-games-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cloud-db-breach->hot-wallet-drain",
+    "slug": "mixin-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "donate->self-liquidation-health-factor-bypass",
+    "slug": "euler-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "bitmart-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "verifier-accepts-zero-hash-initializer",
+    "slug": "nomad-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-governance-vote-no-timelock",
+    "slug": "beanstalk-rekt",
+    "loss_type": "governance_flashloan",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "profanity-vanity-key-recoverable",
+    "slug": "wintermute-rekt-2",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "comp-distribution-scaling-bug",
+    "slug": "compound-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "custody-provider-wallet-keys-compromised",
+    "slug": "vulcan-forged-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "pricePerShare=balance/totalSupply-donation",
+    "slug": "cream-rekt-2",
+    "loss_type": "price-per-share_donation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "round-down-upscale-invariant-deflation",
+    "slug": "balancer-rekt2",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "mpc-signer-key-compromise",
+    "slug": "multichain-rekt2",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "poloniex-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "pushable-tellor-orb-instant-consume",
+    "slug": "bonq-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "compromised-frontend->increaseAllowance-phish",
+    "slug": "badger-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "manipulate-perp-oracle->borrow-collateral",
+    "slug": "mango-markets-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "client-side-wallet-compromise",
+    "slug": "atomic-wallet-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "2of5-multisig-signer-key-compromise",
+    "slug": "harmony-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bridge-operator-account-compromise",
+    "slug": "heco-htx-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "unlock_position_funds-duplicate-call",
+    "slug": "mirror-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "spmm-size-dependent-oracle-no-chainlink-bound",
+    "slug": "woo-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "multisig-signer-key-compromise",
+    "slug": "orbit-bridge-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "compound-fork-cETH-borrow-reentrancy-exitMarket",
+    "slug": "fei-rari-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "null-address-safeTransferFrom-not-revert",
+    "slug": "qubit-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "ascendex-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise-multichain",
+    "slug": "phemex-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "vyper-0.3.0-reentrancy-lock-slot-misalign",
+    "slug": "curve-vyper-rekt",
+    "loss_type": "compiler_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "rogue-dev-upgrade-writes-fake-balance",
+    "slug": "munchables-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "payments-processor-hot-wallet-key-compromise",
+    "slug": "alphapo-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "single-admin-mnemonic-compromise",
+    "slug": "easyfi-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "fee-divisor-fork-k-invariant-break",
+    "slug": "uranium-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "phished-DSProxy-ownership-transfer",
+    "slug": "whale-hunters-payday",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "phished-dev->operator-mnemonic-exfil",
+    "slug": "bzx-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise-multichain",
+    "slug": "coinex-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "3of11-multisig-key->malicious-impl-upgrade",
+    "slug": "radiant-capital-rekt2",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise-multichain",
+    "slug": "btcturk-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "rogue-dev-retained-admin-withdraw-role",
+    "slug": "infini-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "CLMM-tick-liquidity-double-counting",
+    "slug": "kyberswap-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "fake-collateral-mint-field-unvalidated",
+    "slug": "cashio-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan->spot-LP-price->reward-mint",
+    "slug": "pancakebunny-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "epic-hack-homie",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "bingx-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "unvalidated-user-input->forged-approval",
+    "slug": "hedgey-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-server-wallet-access-compromise",
+    "slug": "coindcx-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "position-callback-reentrancy->stale-short-avg-price",
+    "slug": "gmx-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "casino-hot-wallet-key-compromise",
+    "slug": "stake-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "partner-API-compromise->stake-authority-reassign",
+    "slug": "swissborg-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "multisig-key->delegatecall-owner-swap->mint",
+    "slug": "uxlink-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "debt-share-rounding+resolveReserve-inflation",
+    "slug": "alpha-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "lastpass-vault-decrypt->seed-phrase",
+    "slug": "lastpass-users-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "spearphish->proxyadmin-owner-swap->mint",
+    "slug": "humanity-protocol-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "spot-AMM-oracle-decimals-misnormalization",
+    "slug": "veefinance-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-2fa-withdrawal-bypass",
+    "slug": "cryptocom-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "admin-bridge-repeg->lido-stake-lock",
+    "slug": "zkasino-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "deployer-upgradeTo->permissionless-init-drain",
+    "slug": "meerkat-finance-bsc-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "single-token-pool-misprice-tokenIn==tokenOut",
+    "slug": "monox-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "calcLiquidityShare-uses-live-balance",
+    "slug": "spartan-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "depositFor-arbitrary-token-reentrancy",
+    "slug": "grim-finance-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "deribit-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "capo-oracle-stale-snapshot-ratio-cap",
+    "slug": "aave-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "crosschain-create-address-collision",
+    "slug": "wintermute-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "phished-device->stake-authority-key",
+    "slug": "step-finance-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "supply-chain-server-takeover->rewrite-withdrawal-approval",
+    "slug": "bigone-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "batchHarvest-reentrancy-via-fake-market",
+    "slug": "penpie-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "hidden-library-drain-function-rug",
+    "slug": "stablemagnet-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "owner-handoff->mint-dump",
+    "slug": "paid-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "getPurchasePrice-addition-overflow-no-safemath",
+    "slug": "truebit-rekt",
+    "loss_type": "integer_overflow",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-trading-api-key-compromise",
+    "slug": "kronos-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "cex-withdrawal-system-compromise-multichain",
+    "slug": "indodax-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "supply-chain-key->SERVICE_ROLE-unlimited-USR-mint",
+    "slug": "resolv-labs-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-Curve-pool-virtual-price-as-vault-oracle",
+    "slug": "harvest-finance-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "mining-pool-hot-wallet-key-infrastructure-compromise",
+    "slug": "sbi-crypto-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "infinite-mint-aBNB-deployer-key",
+    "slug": "ankr-helio-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-manipulate-snx-oracle-internal-price-mismatch",
+    "slug": "xtoken-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "deployer-pulled-liquidity-rug",
+    "slug": "bald-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "flashloan-inflate-ELEPHANT-during-TRUNK-mint-buyback",
+    "slug": "elephant-money-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "chainlink-minAnswer-floor-stale-during-Luna-crash",
+    "slug": "venus-blizz-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "controllable-claimTokens-transferFrom-sweeps-user-approvals",
+    "slug": "transit-swap-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "post-upgrade-unvalidated-external-call-sweeps-user-approvals",
+    "slug": "unizen-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "compoundv2-fork-donation-multicollateral-share-inflation",
+    "slug": "sonne-finance-rekt",
+    "loss_type": "price-per-share_donation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "lp-token-transfer-fee-double-claim",
+    "slug": "popsicle-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "unwhitelisted-jar-swap-controller",
+    "slug": "pickle-finance-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "curve-pool-fallback-oracle-flashloan-manipulation",
+    "slug": "uwulend-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "erc77-erc1820-token-transfer-reentrancy-borrow",
+    "slug": "cream-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "margin-route-parser-sums-intermediate-min-out",
+    "slug": "rhea-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "gamed-custom-amm-buyback-insider-front-run",
+    "slug": "snowdog-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "strategy-bank-asset-denomination-mismatch-ibBUSD-vs-BUSD",
+    "slug": "bearn-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "self-listing-fake-token-transfer-as-contract-vault-drain",
+    "slug": "alexlab-rekt2",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "makerdao-chief-low-vote-lock-delegatecall-infinite-mint",
+    "slug": "curio-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "balancer-fork-pool-value-extrapolation-weight-lag-mint-inflation",
+    "slug": "indexed-finance-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "v2-to-v3-migrate-skewed-price-refund-leftover-drain",
+    "slug": "teamfinance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "thin-liquidity-sushiswap-twap-multi-block-collateral-inflation",
+    "slug": "inverse-finance-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bonding-curve-cross-rate-mint-burn-arb-drain",
+    "slug": "eminence-rekt-in-prod",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "phishing-dev-env-compromise-hot-wallet-drain",
+    "slug": "woox-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "delegated-handler-storage-overwrite-via-initialize",
+    "slug": "furucombo-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-access-control-breach",
+    "slug": "m2-exchange-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "muon-vwap-flashswap-spoof-plus-onchain-price-inflate",
+    "slug": "deus-dao-rekt-2",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "failed-deposit-self-liquidation-phantom-collateral",
+    "slug": "abracadabra-rekt2",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "permissionless-hook-fake-market-DS-as-RA-input-validation",
+    "slug": "cork-protocol-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "skipped-initializeV3-zero-operator-weight-disables-quorum",
+    "slug": "roninnetwork-rektII",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "post-audit-malicious-strategy-timelock-controller-rug",
+    "slug": "deathbed-confessions-c3pr",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "erc77-wxdai-token-transfer-reentrancy-borrow",
+    "slug": "agave-hundred-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-receiver-missing-input-validation-arbitrary-trove-close",
+    "slug": "prismafi-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "wrong-asset-address-constant-causing-price-per-share-inflation",
+    "slug": "yearn2-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "metapool-stale-library-omits-virtualprice-LP-mispricing",
+    "slug": "saddle-finance-rekt2",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bancor-power-baseN-lt-baseD-precondition-violation-in-swap",
+    "slug": "value-rekt3",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "curve-vault-arbitrage-during-migration-no-withdraw-fee",
+    "slug": "yearn-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "illiquid-collateral-VWAP-oracle-no-deviation-check",
+    "slug": "yieldblox-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "GG20-TSS-malicious-node-key-leak",
+    "slug": "thorchain-rekt3",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "no-multisig-owner-key-compromise",
+    "slug": "dego-finance-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "insider-vault-drain-mint-dump-rug",
+    "slug": "arbix-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "fake-token-value-counted-as-ibETH-collateral",
+    "slug": "rari-capital-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "initialize-missing-initialized-flag->reinit-as-owner",
+    "slug": "value-rekt2",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "empty-ERC4626-donation->exchangeRate-rounds-to-zero",
+    "slug": "resupplyfi-rekt",
+    "loss_type": "price-per-share_donation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "new-facet-swap-fn-no-whitelist->call-injection-sweep-approvals",
+    "slug": "lifi-jumper-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "empty-market-lending_accumulator-rounding-precision",
+    "slug": "zklend-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "blacksmith-claim-rewards-1wei-share-storage-mint-overflow",
+    "slug": "cover-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "stableswap-newton-solver-unchecked-underflow-corrupted-invariant",
+    "slug": "yearn-rekt3",
+    "loss_type": "integer_overflow",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "spot-manipulation->cascade-YFI-long-liquidations-drain-insurance-fund",
+    "slug": "dydx-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "initialize-missing-initializer-modifier->delegatecall-malicious-forge",
+    "slug": "punkprotocol-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "upgrade-exposes-public-burn-FROM-any->drain-LP",
+    "slug": "safemoon-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "tick-account-owner-not-validated->forged-fee-accrual",
+    "slug": "crema-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "spot-AMM-BOO-oracle-flashloan-manipulate",
+    "slug": "polter-finance-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "fake-ctx-calldata-injection->impersonate-accounts->drain-streams",
+    "slug": "superfluid-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "malformed-SPV-proof-parser-accepts-nonexistent-burn",
+    "slug": "syscoin-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "emergencyWithdraw-solvency-check-omits-borrowed-funds",
+    "slug": "platypus-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "custom-LDF-rebalance-rounding-at-near-zero-balance",
+    "slug": "bunni-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "stolen-deployer-key->proxy-upgrade->withdraw",
+    "slug": "zoth-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "thin-native-token-spot-pump->inflate-collateral->borrow",
+    "slug": "moola-markets-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "vVISR-deposit-require-fromOwner-mint-unlimited-shares",
+    "slug": "visor-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "malicious-pypi-package-exfiltrates-coldkey",
+    "slug": "bittensor-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "fake-deposit-event-memo-mishandling->bifrost-refund-to-attacker",
+    "slug": "thorchain-rekt2",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "fake-token-reentrancy-during-flashloan-oracle-manipulation",
+    "slug": "hack-epidemic",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "lcx-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "htx-huobi-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "repeated-ECDSA-nonce-k->recover-MPC-private-key",
+    "slug": "anyswap-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "Uniswap-LP-token-AMM-oracle-flashloan-manipulate",
+    "slug": "warp-finance-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bridge-handler-unguarded-deposit-mints-wrapped-native-no-burn",
+    "slug": "meter-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "deployment-oracle-misconfig->MEV-arb-borrows",
+    "slug": "rho-market-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "compromised-password-manager->foundation-wallet-keys",
+    "slug": "nightmare-ftm",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "shift-rebalance-no-slippage-control->drain-WETH",
+    "slug": "jimbo-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "MinimalForwarder-forged-signer->set-arbitrary-price-feed",
+    "slug": "kiloex-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "donate-WBTC->inflate-hWBTC-exchangeRate-rounding-redeem",
+    "slug": "hundred-rekt2",
+    "loss_type": "price-per-share_donation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "Ownable-transferOwnership->admin-unlock-1.4k-LP-pools",
+    "slug": "dxsale-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "DebtManager-unvalidated-market-address-fake-msgSender",
+    "slug": "exactly-protocol-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "univ2-fork-missing-k-check-reentrancy",
+    "slug": "burgerswap-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "IBC-precompile-forged-deposit-msg-unvalidated-origin",
+    "slug": "saga-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "AMM-spot-price-manipulation-pump-worthless-token",
+    "slug": "odin-fun-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "flashloan-Curve-spot-oracle-withdrawal-misprice",
+    "slug": "value-defi-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "social-eng-listing-fake-LBTC-collateral-then-borrow",
+    "slug": "ionic-money-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "balancer-CPMM-feeMultiplier-manipulation-underflow-mint",
+    "slug": "velocore-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cauldronV4-borrow-share-rounding-donate-repayForAll",
+    "slug": "abra-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "burnFrom-allowance-param-order-swapped-public-burn",
+    "slug": "deus-dao-r3kt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "plvGLP-oracle-donate-inflation-no-delay",
+    "slug": "lodestar-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "alETH-mint-no-debt-recorded-on-ETH-collateral",
+    "slug": "alchemix-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "ibc-hooks-timeout-callback-reentrancy-regression",
+    "slug": "astroport-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "unvalidated-calldata-transferFrom-arbitrary-approval-sweep",
+    "slug": "seneca-protocol-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-strategy-share-value-manipulation-oversubscribed",
+    "slug": "belt-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "proxyAdmin-storage-slot0-collision-initializable-reinit",
+    "slug": "audius-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "admin-key->malicious-proxy-upgrade-inflate-deposit",
+    "slug": "deltaprime-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "single-admin-key-UUPS-upgrade-all-vaults",
+    "slug": "wasabi-protocol-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "minter-key-compromise-373M-BONDLY-mint-dump",
+    "slug": "bondly-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "permissionless-registerAllowedOrderSigner-forged-order-sweep",
+    "slug": "trustedvolumes-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "stale-malicious-price-feed-undercollateralized-loans",
+    "slug": "loopscale-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-Curve-LP-token-balance-oracle-misprice",
+    "slug": "inverse-rekt2",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "social-token-hot-wallet-key-compromise-dump",
+    "slug": "roll-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "permissionless-denom-registry-poison-fake-eth-addr",
+    "slug": "gravity-bridge-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "wallet-app-seed-phrase-logging-compromise",
+    "slug": "unsolved-mystery",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "bonus-mint-reward-LP-pair-unregistered-zero-tax",
+    "slug": "betterbank-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "calldata-negative-interactionLength-underflow-memory-suffix",
+    "slug": "1inch-rekt",
+    "loss_type": "integer_overflow",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bifrost-vaultTransferEvent-override-loop-msg.value-confusion",
+    "slug": "thorchain-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "vault-accepts-anyone-mintable-collateral-arbitrary-borrow",
+    "slug": "shezmu-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "periphery-adaptor-unchecked-input-retrieve-collateral",
+    "slug": "deltaprime-rekt2",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "transfer-self-to-self-balance-doubles-no-self-check",
+    "slug": "sss-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "multisig-grant-admin-bridge-role-to-attacker-mint-acUSDC",
+    "slug": "credix-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-deposit-price-threshold-too-high-inflate-LP-shares",
+    "slug": "gamma-strategies-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "aave-fork-empty-market-rounding-totalSupply-0-flashloan",
+    "slug": "radiant-capital-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "callFunction-erroneous-require-public-flashloan-callback",
+    "slug": "xtoken-rekt-x2",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "emergencyBurn-no-internal-accounting-double-withdraw",
+    "slug": "11-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bridge-validator-owner-key-compromise-tokenSafe-drain",
+    "slug": "iotex-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "vesting-contract-ownership-compromise-emergency-rescue-infinite-mint",
+    "slug": "tapioca-dao-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "3of4-multisig-signer-key-compromise-forged-deposit-proof",
+    "slug": "poly-network-rekt2",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "pool-owner-key-leak-withdraw_pnl",
+    "slug": "raydium-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "bridge-mint-auth-check-sig-per-tx-bypass",
+    "slug": "chainswap-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "phished-deployer-key->proxy-upgrade-withdraw",
+    "slug": "alexlab-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "read-only-reentrancy-CurveLPOracleV2-ETH-vs-WETH",
+    "slug": "conic-finance-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "permissionless-updateTotalAum-spot-Curve-no-TWAP",
+    "slug": "makina-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "deployer-set-malicious-impl-sweep-cBTC",
+    "slug": "kokomo-finance-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "ERC677-callAfterTransfer-borrow-reentrancy",
+    "slug": "voltage-finance-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "reinitializable-init->emergencyExit",
+    "slug": "daomaker-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "safe-module-missing-msg.sender-check-confused-deputy",
+    "slug": "newmarkettrading-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "compound-fork-low-liquidity-exchangeRate-rounding-mint-redeem",
+    "slug": "onyx-protocol-rekt2",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bridge-admin-key-leak-privileged-unlock",
+    "slug": "force-bridge-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "donation-bypass-supply-cap->recursive-borrow-thin-liquidity",
+    "slug": "venus-protocol-rekt4",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "read-only-reentrancy-Curve-virtualPrice-oracle",
+    "slug": "dforce-network-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "unvalidated-swapData->arbitrary-call-via-rebalancer",
+    "slug": "arcadiafi-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "admin-key-leak-privileged-vault-drain",
+    "slug": "volo-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "flashloan-inflate-ANA-mint->treasury-cashout",
+    "slug": "nirvana-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "read-only-reentrancy-syncswap-LP-burn-callback-stale-reserves",
+    "slug": "eralend-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "unvalidated-swapExtraData-transferFrom-from-approvers",
+    "slug": "socket-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-collateral-inflation->mint-R-without-burn-check",
+    "slug": "raft-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "RouteProcessor2-unchecked-V3-callback-pool-deployer",
+    "slug": "sushi-yoink-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "redeem_skyward-unvalidated-token_account_ids-loop",
+    "slug": "skyward-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "leaked-owner-key-EIP7702-stake-unstake-loop",
+    "slug": "gana-payment-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "contractor-supply-chain-front-end-wallet-injection",
+    "slug": "jaypegs-automart-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "compromised-admin-setPeer-fake-LayerZero-peer-infinite-mint",
+    "slug": "griffinai-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-BONE->validator-majority-fraudulent-checkpoint",
+    "slug": "shibarium-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "telegram-message-oracle-signature-forgery-manual-transfer",
+    "slug": "bananagun-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "deposit-credited-before-completion-no-confirm",
+    "slug": "certik-kraken-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "upgrade-reward-contract->backdoor-_add-drain-LP",
+    "slug": "swaprum-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "fake-token-transfer-callback-depositAsset-reentrancy",
+    "slug": "orion-protocol-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "publicly-callable-price-submit+governance-add-collateral",
+    "slug": "fortress-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-spot-AMM-LP-oracle-no-TWAP->liquidate",
+    "slug": "deus-dao-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "sellShares-reentrancy-inject-blockheight-as-amount",
+    "slug": "stars-arena-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "deployer-withdrawToken-and-premint-dump-rug",
+    "slug": "LSC-FSL-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "ERC3525-onERC721Received-callback-mint-before-balance-update",
+    "slug": "solv-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "upgrade-exposed-price-feed-proxy-decimals-mismatch-setExpiryPrice",
+    "slug": "aevo-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "proxy-admin-owner-key->upgrade-DEX-proxy-sweep-approvals",
+    "slug": "okx-dex-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cex-hot-wallet-key-compromise",
+    "slug": "remitano-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "botched-L2-launch-stuck-bridge-funds-no-withdraw",
+    "slug": "shibarium-bridge-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "mmr-verifier-missing-leaf-index-bounds-check",
+    "slug": "hyperbridge-rekt",
+    "loss_type": "bridge_verifier/signature_bypass",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "abandoned-protocol-governance->malicious-impl-upgrade",
+    "slug": "atlantis-loans-rekt",
+    "loss_type": "governance_flashloan",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "single-admin-god-key->mint-and-dump",
+    "slug": "tesseradao-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "vault-deposits-count-external-minichef-balance-as-fee",
+    "slug": "pancakebunny2-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "migrateStake-oldStaking-not-validated",
+    "slug": "templedao-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "zk-proof-vs-settlement-numRealTxs-boundary-mismatch",
+    "slug": "aztec-connect-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan-manipulate-cash-liability-slippage",
+    "slug": "platypus-rekt2",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "double-decimal-multiplier-in-mint",
+    "slug": "mobiusdao-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "dev-treasury-exit-scrap-and-bridge",
+    "slug": "ethtrustfund-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "compound-fork-empty-market-cToken-rounding-donation",
+    "slug": "onyx-protocol-rekt",
+    "loss_type": "price-per-share_donation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "linear-pool-rounded-down-rate-manipulation",
+    "slug": "balancer-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "donation-inflates-totalHoldings-LP-price",
+    "slug": "zunami-protocol-rekt",
+    "loss_type": "price-per-share_donation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "MainChef-withdraw-on-behalf-backdoor-rug",
+    "slug": "kannagi-finance-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "claimandpool-missing-caller-verification",
+    "slug": "gymnet-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "ERC1155-mint-fnftId-not-updated-reentrancy",
+    "slug": "revest-finance-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "pancake-spot-reserve-oracle+fee-sync-selfdrain",
+    "slug": "newgold-protocol-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "SigmaSupplier-NATIVE_BTC-unregistered->supply-zero-mint-cap-bypass",
+    "slug": "bedrock-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "deployer-pc-hack->mint-authority-mint-dump",
+    "slug": "grand-base",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "mev-bot-unprotected-swap-function",
+    "slug": "ripmevbot2",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "selfSwap-router-not-allowlisted->transferFrom",
+    "slug": "dexible-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "dns-hijack->malicious-router-address-in-frontend",
+    "slug": "madmeerkat-finance-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "crowdpool-init-reinit-with-fake-token",
+    "slug": "au-dodo-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "deposit-uses-arbitrary-token-balance-delta-reentrancy",
+    "slug": "akropolis-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "collectFees-missing-reentrancy-guard-malicious-token-callback",
+    "slug": "gempad-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "unprotected-initialize-version-bump->upgradeToAndCall-steal-owner",
+    "slug": "pike-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "multisig-approved-fake-router->_uSDC-empty-redirect",
+    "slug": "hope-finance-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "feeto-address-max-approval-drain-at-deploy",
+    "slug": "merlin-dex-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "cook-action0-resets-needsSolvencyCheck",
+    "slug": "abracadabra-rekt3",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "cbETH-oracle-missing-ETH/USD-multiply->misprice",
+    "slug": "moonwell-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "manual-balance-inflate-rewards-inside-job",
+    "slug": "bent-finance",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "private-key-leak-poor-opsec",
+    "slug": "8ight-finance-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "backdoor-withdrawFunds-funder-drain-rug",
+    "slug": "defilabs-rekt",
+    "loss_type": "insider/rug",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "iBTC-pool-reward-claim-misconfig-exponential-mint",
+    "slug": "acala-network-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "dydx-callFunction-arbitrary-execution",
+    "slug": "ripmevbot",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "mint-key-published-on-github",
+    "slug": "levyathan-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "gmx-fork-mint-stake-swap-USDG-drain-loop",
+    "slug": "tmztribe-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "buyItem-no-quantity>0-check",
+    "slug": "treasure-dao-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "fat-finger-out-of-range-uniV3-LP->mev-backrun",
+    "slug": "moneyfornothing",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "staker-accepts-fake-token-LP",
+    "slug": "the-big-combo",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "backdoored-onlyPool-isPoolAdmin-Aave-fork",
+    "slug": "LNDFi-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "congestion-extended-stale-oracle-delta-arb",
+    "slug": "levana-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "compromised-deployer-owner->borrow-any-funds",
+    "slug": "steadefi-rekt",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "tokenPrice-stale-totalSupply-flashloan-load-token",
+    "slug": "sovryn-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "owner-transfer->upgrade->rescueTokens-backdoor",
+    "slug": "brincfi-rekt-coldcase",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "referral-claimMultiple-no-epoch-replay-guard",
+    "slug": "level-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "stolen-proxy-admin-key->upgradeTo-drain-vault",
+    "slug": "mobytrade-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "CPIMP-front-run-proxy-init-shadow-middleman",
+    "slug": "uspd-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "server-stored-private-key-bruteforce->proxy-farm-drain",
+    "slug": "rocketswap-rekt",
+    "loss_type": "CEX_hot_wallet/private_key",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "compromised-key->contract-upgrade->approval-sweep",
+    "slug": "orange-finance-rekt",
+    "loss_type": "upgrade/proxy",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "read-only-reentrancy-Balancer-virtualPrice-oracle",
+    "slug": "sturdy-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "metamorphic-contract-CREATE-CREATE2-selfDestruct-governance",
+    "slug": "tornado-gov-rekt",
+    "loss_type": "governance_flashloan",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "flashloan->spot-contract-balance-as-profit->reward-mint",
+    "slug": "autoshark-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "direct-token-transfer-inflates-profit->reward-mint",
+    "slug": "merlinlabs-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "read-only-reentrancy-Curve-LP-virtualPrice-collateral",
+    "slug": "midas-capital-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "unvalidated-router-function->arbitrary-transferFrom",
+    "slug": "unibot-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "redeem-rounding-share-accounting-Hundred-fork",
+    "slug": "midas-rekt2",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "DNS-hijack->malicious-approval-harvest",
+    "slug": "curve-finance-rekt",
+    "loss_type": "social_engineering/blind_signing",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "enterprise-approval-on-permissionless-Settler->MEV-transferFrom",
+    "slug": "drained-by-design",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "hotfix-priceCalculator-misprice-BAND",
+    "slug": "merlin2-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "HTS-unwrap-burn-bridged-tokens-UniV2-port",
+    "slug": "hedera-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "admin-key->withdrawStuckToken-sweep-strategy",
+    "slug": "zunami-protocol-rekt2",
+    "loss_type": "access_control_misconfig",
+    "relevant_for_auditor": false
+  },
+  {
+    "mechanism_tag": "post-audit-burnHook-callback-reentrancy",
+    "slug": "cloberdex-rekt",
+    "loss_type": "reentrancy",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "illiquid-PT-LBTC-collateral-misparam->borrow-real-LBTC",
+    "slug": "zero-to-lend",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "transient-storage-slot-collision-vanity-address",
+    "slug": "sirtrading-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "direct-deposit-counted-as-reward-profit",
+    "slug": "merlin3-rekt",
+    "loss_type": "oracle_price_manipulation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "self-transfer-beforeTokenTransfer-claims-reset-amnesia",
+    "slug": "theidolsnft-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "legacy-misconfigured-strategy->donation->share-inflation->yPool-dump",
+    "slug": "yearn-rekt4",
+    "loss_type": "price-per-share_donation",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "forked-StableSwap-math-slip-bug->early-LP-arb",
+    "slug": "saddle-finance-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "fee-on-transfer-token-skews-accPerShare-deposit-loop",
+    "slug": "safedollar-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "OP-Stack-finalizeERC20Withdrawal-clearLegacySlot-reinit",
+    "slug": "hypr-network-rekt",
+    "loss_type": "smart_contract_logic_bug",
+    "relevant_for_auditor": true
+  },
+  {
+    "mechanism_tag": "bridge-minter-key-leak->900M-mint-dump",
+    "slug": "hacken-rekt",
+    "loss_type": "infinite_mint",
+    "relevant_for_auditor": false
+  }
+]
